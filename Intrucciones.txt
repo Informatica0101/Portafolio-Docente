@@ -1,0 +1,186 @@
+Estructura de la web.
+
+/
+├── index.html (modificado)
+├── common.css
+├── index.css
+├── syllabus.css
+├── modal.js 
+├── backend/silabos/silabos.gs
+├── Portafolio/
+│   ├── Silabos/
+│   │   ├── SIlabo_Duodecimo_DW.html (modificado)
+│   │   └── Silabo_Undecimo_Programacion_parcial_1.html (modificado)
+│   └── Planes/
+│       ├── Planes_DW_parcial_1.html (sin cambios)
+│       └── Planes_Programacion_parcial_1.html (sin cambios)
+└── imagenes/ (sin cambios)
+
+
+
+
+Estructura de la spreadsheet
+
+enlace: https://docs.google.com/spreadsheets/d/1uFTNgCJAM59_Z-5aMNeZiDRxWjcv2tBE_kJTUowbADg/edit?usp=sharing
+
+Hoja 1:            
+Asignaturas		
+
+Nombre de columnas		ejemplo
+
+asignatura_id			asig_001
+
+nombre_asignatura		Programacion	
+
+area				BTP
+
+grado				Undecimo
+
+seccion				A
+
+docente				Pablo Antonio Peña Mancia
+
+periodo				I Parcial
+
+fecha_inicio			08/02/2026
+
+fecha_fin			12/04/2026
+
+Hoja 2:            
+Silabos		
+
+Nombre de columnas		ejemplo
+
+silabo_id			sil_0001
+
+asignatura_id			asig_001
+
+nombre_silabo			Silabo de Programacion
+
+parcial				Primer	
+
+fecha_inicio			8/02/2026
+
+fecha_cierre			12/04/2026			
+
+evaluacion_final_porcentaje	100%
+
+observaciones			Aprovado/Reprobado
+
+
+Hoja 3:            
+Unidades		
+
+Nombre de columnas		ejemplo
+
+unidad_id			uni_0001
+
+silabo_id			sil_0001
+
+nombre_unidad			Introducción a la Programación
+
+
+competencia_unidad		Comprender la importancia...
+
+
+indicador_logro			Identifica los objetivos...
+
+
+
+Hoja 4:            
+Clases_Plan		
+
+Nombre de columnas		ejemplo
+
+
+clase_id			clas_001
+
+unidad_id			uni_0001
+
+fecha_clase			08/02/2026
+
+tema				Introducción a la Programación
+
+competencia_clase		Comprender la importancia...
+
+indicador_logro			Identifica los objetivos...
+
+pre_saberes			Uso de computadoras...
+
+actividad_guiada		explicacion del tema...
+
+actividad_independiente		ejercicios
+
+sintesis_tema			explicacion central del tema
+
+
+Hoja 5:            
+Recursos		
+
+Nombre de columnas		ejemplo
+
+recurso_id
+
+clase_id
+
+tipo_recurso	
+
+descripcion
+
+
+
+
+Hoja 5:            
+Asignaciones		
+
+Nombre de columnas
+
+
+asignacion_id	
+
+clase_id	
+
+titulo_asignacion	
+
+descripcion	
+
+tipo	
+
+fecha_entrega	
+
+ponderacion
+
+Hoja 6:            
+Criterios_Evaluacion		
+
+Nombre de columnas
+
+criterio_id	
+
+asignacion_id	
+
+criterio	
+
+descripcion
+
+Hoja 7:            
+Evaluaciones		
+
+Nombre de columnas
+
+evaluacion_id	
+
+silabo_id	
+
+tipo_evaluacion	
+
+fecha	
+
+ponderacion_total
+
+
+
+_______________________________________________________________________________________
+
+
+es necesario crear el script de backed para microservicio de appscript. 
