@@ -26,6 +26,7 @@
             font-weight: 700;
         }
         
+        /* MODIFICACIÓN DEL ENCABEZADO CON PERFIL */
         .profile-header {
             background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             color: white;
@@ -34,13 +35,82 @@
             border-radius: 0 0 15px 15px;
         }
         
+        .profile-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .profile-img-wrapper {
+            flex: 0 0 auto;
+            margin-right: 2rem;
+            text-align: center;
+        }
+        
         .profile-img {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-info h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-info .lead {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Para pantallas pequeñas, cambiar a diseño vertical */
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-img-wrapper {
+                margin-right: 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+            
+            .profile-info .lead {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .profile-header {
+                padding: 2rem 0;
+            }
+            
+            .profile-img {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .profile-info h1 {
+                font-size: 1.8rem;
+            }
         }
         
         .section-title {
@@ -83,13 +153,76 @@
             border-left-color: #e74c3c;
         }
         
-        .carousel-item img {
-            height: 400px;
-            object-fit: cover;
+        /* CARRUSEL CORREGIDO - Imágenes completamente visibles */
+        #evidenceCarousel {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px 0;
         }
         
-        .carousel-control-prev, .carousel-control-next {
-            width: 5%;
+        #evidenceCarousel .carousel-inner {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        #evidenceCarousel .carousel-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        #evidenceCarousel .carousel-item img {
+            max-height: 300px;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            margin: 0 auto;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: block;
+        }
+        
+        /* Asegurar que las imágenes no se corten */
+        #evidenceCarousel .carousel-item.active,
+        #evidenceCarousel .carousel-item-next,
+        #evidenceCarousel .carousel-item-prev {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #evidenceCarousel .carousel-caption {
+            background: rgba(0, 0, 0, 0.7);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            margin: 0 15px;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        #evidenceCarousel .carousel-caption h5 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        #evidenceCarousel .carousel-caption p {
+            color: #ddd;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        
+        /* Controles del carrusel más visibles */
+        #evidenceCarousel .carousel-control-prev,
+        #evidenceCarousel .carousel-control-next {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 10px;
         }
         
         .timeline {
@@ -161,11 +294,6 @@
         }
         
         @media (max-width: 768px) {
-            .profile-img {
-                width: 150px;
-                height: 150px;
-            }
-            
             .carousel-item img {
                 height: 250px;
             }
@@ -177,6 +305,28 @@
             
             .card-body {
                 padding: 1rem;
+            }
+            
+            #evidenceCarousel .carousel-item img {
+                max-height: 250px;
+            }
+            
+            #evidenceCarousel .carousel-caption {
+                margin: 0 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            #evidenceCarousel .carousel-item img {
+                max-height: 200px;
+            }
+            
+            #evidenceCarousel .carousel-caption h5 {
+                font-size: 0.9rem;
+            }
+            
+            #evidenceCarousel .carousel-caption p {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -219,17 +369,23 @@
         </div>
     </nav>
 
-    <!-- Encabezado con perfil -->
+    <!-- ENCABEZADO MODIFICADO: Foto a la izquierda del nombre -->
     <section id="inicio" class="profile-header">
-        <div class="container text-center">
-            <img src="imagenes/foto_perfil.png" alt="Foto de perfil de Pablo Antonio Peña Mancia" class="profile-img mb-3">
-            <h1>Pablo Antonio Peña Mancia</h1>
-            <p class="lead">Docente de Informática | Técnico en Computación y Electrónica | Desarrollador Web</p>
-            <div class="mt-3">
-                <span class="badge bg-light text-dark me-2 mb-2">Ingeniería Eléctrica Industrial</span>
-                <span class="badge bg-light text-dark me-2 mb-2">Docente de Informática</span>
-                <span class="badge bg-light text-dark me-2 mb-2">Desarrollador Web</span>
-                <span class="badge bg-light text-dark mb-2">Técnico en Electrónica</span>
+        <div class="container">
+            <div class="profile-container">
+                <div class="profile-img-wrapper">
+                    <img src="imagenes/foto_perfil.png" alt="Foto de perfil de Pablo Antonio Peña Mancia" class="profile-img">
+                </div>
+                <div class="profile-info">
+                    <h1>Pablo Antonio Peña Mancia</h1>
+                    <p class="lead">Docente de Informática | Técnico en Computación y Electrónica | Desarrollador Web</p>
+                    <div class="mt-3">
+                        <span class="badge bg-light text-dark me-2 mb-2">Ingeniería Eléctrica Industrial</span>
+                        <span class="badge bg-light text-dark me-2 mb-2">Docente de Informática</span>
+                        <span class="badge bg-light text-dark me-2 mb-2">Desarrollador Web</span>
+                        <span class="badge bg-light text-dark mb-2">Técnico en Electrónica</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -573,7 +729,7 @@
                                 <div class="btn-group d-flex flex-wrap" role="group">
                                     <button type="button" class="btn btn-outline-primary active" data-filter="all">Todas</button>
                                     <button type="button" class="btn btn-outline-primary" data-filter="programacion">Programación</button>
-                                    <button type="button" class="btn btn-outline-primary" data-filter="web">Diseño Web</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="diseño-web">Diseño Web</button>
                                     <button type="button" class="btn btn-outline-primary" data-filter="otros">Otras Asignaturas</button>
                                 </div>
                             </div>
@@ -581,7 +737,7 @@
                     </div>
                 </div>
                 
-                <!-- Carrusel de evidencias -->
+                <!-- Carrusel de evidencias CORREGIDO -->
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title mb-3" id="evidence-title">Evidencias de Trabajos Estudiantiles</h5>
@@ -592,6 +748,12 @@
                             </div>
                             <div class="carousel-inner" id="carousel-inner">
                                 <!-- Las imágenes del carrusel se cargarán dinámicamente con JavaScript -->
+                                <!-- Mensaje mientras se cargan las imágenes -->
+                                <div class="carousel-item active">
+                                    <div class="d-flex align-items-center justify-content-center h-100">
+                                        <p class="text-muted">Cargando evidencias...</p>
+                                    </div>
+                                </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#evidenceCarousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -709,30 +871,9 @@
             <div class="mt-3">
                 <a href="#inicio" class="text-light me-3"><i class="bi bi-arrow-up-circle"></i> Volver al inicio</a>
                 <a href="imagenes/foto_perfil.jpg" class="text-light me-3" target="_blank"><i class="bi bi-image"></i> Ver foto de perfil</a>
-                <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#printModal"><i class="bi bi-printer"></i> Versión imprimible</a>
             </div>
         </div>
     </footer>
-
-    <!-- Modal para versión imprimible -->
-    <div class="modal fade" id="printModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Versión Imprimible</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Para obtener una versión imprimible de este portafolio, utilice la función de impresión de su navegador.</p>
-                    <p><strong>Recomendación:</strong> Active la opción "Fondo de gráficos" en la configuración de impresión para incluir los colores y estilos.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="window.print()">Imprimir Portafolio</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -741,34 +882,55 @@
         const evidences = [
             {
                 id: 1,
-                title: "Linea de tiempo de la programación",
+                title: "Línea de tiempo de la programación",
                 description: "Evidencia de estudiantes de Undécimo creando su primer tarea.",
                 filter: "programacion",
-                imageUrl: "imagenes/Evidencias/Linea_tiempo.PNG" // placeholder - reemplazar con URL real
+                imageUrl: "imagenes/Evidencias/Linea_tiempo.PNG"
             },
             {
                 id: 2,
-                title: "Linea de tiempo de la programación",
+                title: "Línea de tiempo de la programación",
                 description: "Evidencia de estudiantes de Undécimo creando su primer tarea.",
                 filter: "programacion",
-                imageUrl: "imagenes/Evidencias/Linea_tiempo2.PNG" // placeholder - reemplazar con URL real
+                imageUrl: "imagenes/Evidencias/Linea_tiempo2.PNG"
             },
             {
                 id: 3,
-                title: "Introduccion a Diseño Web",
-                description: "Cuadro conceptual de terminos en el desarollo web.",
-                filter: "Diseño Web",
-                imageUrl: "imagenes/Evidencias/cuadro.PNG" // placeholder - reemplazar con URL real
-             }
+                title: "Introducción a Diseño Web",
+                description: "Cuadro conceptual de términos en el desarrollo web.",
+                filter: "diseño-web",
+                imageUrl: "imagenes/Evidencias/cuadro.PNG"
+            }
         ];
         
-        // Inicializar el carrusel con las evidencias
-        document.addEventListener('DOMContentLoaded', function() {
+        // Variables globales para el carrusel
+        let currentFilter = 'all';
+        let filteredEvidences = [...evidences];
+        let carouselInstance = null;
+        
+        // Función para inicializar el carrusel con las evidencias proporcionadas
+        function initCarousel(evidenceList) {
             const carouselInner = document.getElementById('carousel-inner');
             const carouselIndicators = document.querySelector('.carousel-indicators');
             
+            // Limpiar el carrusel actual
+            carouselInner.innerHTML = '';
+            carouselIndicators.innerHTML = '';
+            
+            // Si no hay evidencias, mostrar mensaje
+            if (evidenceList.length === 0) {
+                carouselInner.innerHTML = `
+                    <div class="carousel-item active">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <p class="text-muted">No hay evidencias disponibles para este filtro.</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
             // Generar elementos del carrusel
-            evidences.forEach((evidence, index) => {
+            evidenceList.forEach((evidence, index) => {
                 // Crear indicador
                 const indicator = document.createElement('button');
                 indicator.type = 'button';
@@ -784,8 +946,11 @@
                 carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
                 carouselItem.dataset.filter = evidence.filter;
                 
+                // Crear contenedor para la imagen para mejor control
                 carouselItem.innerHTML = `
-                    <img src="${evidence.imageUrl}" class="d-block w-100" style="max-height: 250px; width: auto;" alt="${evidence.title}">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <img src="${evidence.imageUrl}" class="img-fluid" alt="${evidence.title}" style="max-height: 300px; width: auto;">
+                    </div>
                     <div class="carousel-caption d-none d-md-block">
                         <h5>${evidence.title}</h5>
                         <p>${evidence.description}</p>
@@ -795,59 +960,61 @@
                 carouselInner.appendChild(carouselItem);
             });
             
-            // Filtrado de evidencias por asignatura
-            const filterButtons = document.querySelectorAll('[data-filter]');
-            const evidenceTitle = document.getElementById('evidence-title');
+            // Reinicializar el carrusel de Bootstrap
+            if (carouselInstance) {
+                carouselInstance.dispose();
+            }
             
-            filterButtons.forEach(button => {
+            const carouselElement = document.getElementById('evidenceCarousel');
+            carouselInstance = new bootstrap.Carousel(carouselElement, {
+                interval: 5000,
+                wrap: true
+            });
+        }
+        
+        // Función para filtrar evidencias
+        function filterEvidences(filter) {
+            currentFilter = filter;
+            
+            if (filter === 'all') {
+                filteredEvidences = [...evidences];
+                document.getElementById('evidence-title').textContent = 'Evidencias de Trabajos Estudiantiles';
+            } else {
+                filteredEvidences = evidences.filter(evidence => evidence.filter === filter);
+                
+                // Actualizar título según el filtro
+                if (filter === 'programacion') {
+                    document.getElementById('evidence-title').textContent = 'Evidencias - Programación (Undécimo)';
+                } else if (filter === 'diseño-web') {
+                    document.getElementById('evidence-title').textContent = 'Evidencias - Diseño Web I (Duodécimo)';
+                } else if (filter === 'otros') {
+                    document.getElementById('evidence-title').textContent = 'Evidencias - Otras Asignaturas';
+                }
+            }
+            
+            // Actualizar botones activos
+            document.querySelectorAll('[data-filter]').forEach(button => {
+                if (button.dataset.filter === filter) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+            
+            // Reinicializar el carrusel con las evidencias filtradas
+            initCarousel(filteredEvidences);
+        }
+        
+        // Inicializar el carrusel al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar el carrusel con todas las evidencias
+            initCarousel(evidences);
+            
+            // Configurar eventos para los botones de filtro
+            document.querySelectorAll('[data-filter]').forEach(button => {
                 button.addEventListener('click', function() {
-                    // Actualizar botones activos
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
                     const filter = this.dataset.filter;
-                    
-                    // Actualizar título
-                    if (filter === 'all') {
-                        evidenceTitle.textContent = 'Evidencias de Trabajos Estudiantiles';
-                    } else if (filter === 'programacion') {
-                        evidenceTitle.textContent = 'Evidencias - Programación (Undécimo)';
-                    } else if (filter === 'web') {
-                        evidenceTitle.textContent = 'Evidencias - Diseño Web I (Duodécimo)';
-                    } else if (filter === 'otros') {
-                        evidenceTitle.textContent = 'Evidencias - Otras Asignaturas';
-                    }
-                    
-                    // Filtrar elementos del carrusel
-                    const carouselItems = document.querySelectorAll('.carousel-item');
-                    let firstActive = false;
-                    
-                    carouselItems.forEach((item, index) => {
-                        if (filter === 'all' || item.dataset.filter === filter) {
-                            item.style.display = 'block';
-                            
-                            // Activar el primer elemento visible
-                            if (!firstActive) {
-                                item.classList.add('active');
-                                const indicator = document.querySelector(`[data-bs-slide-to="${index}"]`);
-                                indicator.classList.add('active');
-                                firstActive = true;
-                            } else {
-                                item.classList.remove('active');
-                                const indicator = document.querySelector(`[data-bs-slide-to="${index}"]`);
-                                indicator.classList.remove('active');
-                            }
-                        } else {
-                            item.style.display = 'none';
-                            item.classList.remove('active');
-                            const indicator = document.querySelector(`[data-bs-slide-to="${index}"]`);
-                            indicator.classList.remove('active');
-                        }
-                    });
-                    
-                    // Reiniciar carrusel si no hay elementos activos
-                    const carousel = new bootstrap.Carousel(document.getElementById('evidenceCarousel'));
-                    carousel.to(0);
+                    filterEvidences(filter);
                 });
             });
             
@@ -874,6 +1041,17 @@
                     }
                 });
             });
+            
+            // Manejar errores de carga de imágenes en el carrusel
+            document.addEventListener('error', function(e) {
+                if (e.target.tagName === 'IMG' && e.target.closest('#evidenceCarousel')) {
+                    console.warn('Error al cargar imagen del carrusel:', e.target.src);
+                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y4ZjlmYSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjNjY2Ij5JbWFnZW4gbm8gZGlzcG9uaWJsZTwvdGV4dD48L3N2Zz4=';
+                    e.target.alt = 'Imagen no disponible';
+                    e.target.style.maxHeight = '200px';
+                    e.target.style.width = 'auto';
+                }
+            }, true);
         });
     </script>
 </body>
