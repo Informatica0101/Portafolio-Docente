@@ -757,7 +757,7 @@
                 id: 3,
                 title: "Introduccion a Diseño Web",
                 description: "Cuadro conceptual de terminos en el desarollo web.",
-                filter: "programacion",
+                filter: "Diseño Web",
                 imageUrl: "imagenes/Evidencias/cuadro.PNG" // placeholder - reemplazar con URL real
              }
         ];
@@ -785,7 +785,7 @@
                 carouselItem.dataset.filter = evidence.filter;
                 
                 carouselItem.innerHTML = `
-                    <img src="${evidence.imageUrl}" class="d-block w-100" alt="${evidence.title}">
+                    <img src="${evidence.imageUrl}" class="d-block w-100" style="max-height: 250px; width: auto;" alt="${evidence.title}">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>${evidence.title}</h5>
                         <p>${evidence.description}</p>
