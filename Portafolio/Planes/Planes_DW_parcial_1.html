@@ -3,785 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planes de Clase - Diseño Web I</title>
+    <title>PLAN DE CLASE - Diseño Web I</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
         }
-        
+
         body {
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
             color: #333;
-            line-height: 1.6;
-            padding: 20px;
+            padding-top: 2rem;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #27ae60;
-        }
-        
-        h1 {
-            color: #27ae60;
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-        }
-        
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        
-        .info-box {
-            background-color: #ecf0f1;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .info-item {
-            flex: 1;
-            min-width: 200px;
-            margin: 5px;
-        }
-        
-        .info-item strong {
-            color: #27ae60;
-        }
-        
-        .weeks-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
+
         .week-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            border-left: 5px solid #2ecc71;
+            border: none;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
         }
-        
+
         .week-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-        
-        .week-number {
-            font-size: 1.5rem;
-            color: #27ae60;
-            margin-bottom: 5px;
-        }
-        
-        .week-date {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .week-topic {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .week-assignment {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 40px auto;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: modalFade 0.3s;
-        }
-        
-        @keyframes modalFade {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+
         .modal-header {
-            background-color: #27ae60;
+            background-color: var(--primary-color);
             color: white;
-            padding: 20px;
-            border-radius: 10px 10px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-        
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        
-        .close-modal {
-            background: none;
+
+        .btn-primary {
+            background-color: var(--accent-color);
             border: none;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-            line-height: 1;
         }
-        
-        .modal-body {
-            padding: 25px;
-        }
-        
-        .plan-detail {
-            margin-bottom: 20px;
-        }
-        
-        .plan-detail h3 {
-            color: #27ae60;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .detail-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        .detail-table td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        
-        .detail-table td:first-child {
-            font-weight: bold;
-            background-color: #f8f9fa;
-            width: 30%;
-        }
-        
-        .stages-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .stages-table th, .stages-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        
-        .stages-table th {
-            background-color: #27ae60;
-            color: white;
-        }
-        
-        .stages-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #2ecc71;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #27ae60;
-        }
-        
-        .btn-secondary {
-            background-color: #7f8c8d;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #636e72;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-        
-        .warning-note {
-            background-color: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-        
-        /* Estilos de impresión */
-        @media print {
-            body {
-                background-color: white !important;
-                color: black !important;
-                padding: 0;
-                margin: 0;
-            }
-            
-            .container {
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            
-            .modal {
-                display: block !important;
-                position: static !important;
-                background-color: white !important;
-                width: 100% !important;
-                height: auto !important;
-                overflow: visible !important;
-            }
-            
-            .modal-content {
-                margin: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                box-shadow: none !important;
-                border: 1px solid #000 !important;
-                page-break-inside: avoid;
-            }
-            
-            .modal-header {
-                background-color: #fff !important;
-                color: #000 !important;
-                border-bottom: 2px solid #000 !important;
-            }
-            
-            .close-modal {
-                display: none !important;
-            }
-            
-            .btn, .week-card {
-                display: none !important;
-            }
-            
-            .weeks-container, footer, .warning-note, .info-box {
-                display: none !important;
-            }
-            
-            /* Asegurar que las tablas sean visibles */
-            .detail-table, .stages-table {
-                width: 100% !important;
-                border: 1px solid #000 !important;
-                page-break-inside: avoid;
-            }
-            
-            .detail-table td, .stages-table th, .stages-table td {
-                border: 1px solid #000 !important;
-                padding: 8px !important;
-            }
-            
-            .detail-table td:first-child {
-                background-color: #f0f0f0 !important;
-                font-weight: bold !important;
-            }
-            
-            .stages-table th {
-                background-color: #ddd !important;
-                color: #000 !important;
-            }
-            
-            .stages-table tr:nth-child(even) {
-                background-color: #f5f5f5 !important;
-            }
-            
-            /* Mejorar legibilidad del texto */
-            h1, h2, h3 {
-                color: #000 !important;
-                page-break-after: avoid;
-            }
-            
-            .plan-detail {
-                page-break-inside: avoid;
-                margin-bottom: 15px !important;
-            }
-            
-            p {
-                page-break-inside: avoid;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .weeks-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .info-box {
-                flex-direction: column;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 20px auto;
-            }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Planes de Clase - Diseño Web I</h1>
-            <div class="subtitle">Primer Parcial 2026 - III Informática "A"</div>
-            <div class="warning-note">
-                <strong>Nota:</strong> Fechas asignadas según calendario académico.
-            </div>
-            <div class="info-box">
-                <div class="info-item"><strong>Docente:</strong> Pablo Antonio Peña Mancia</div>
-                <div class="info-item"><strong>Período:</strong> I Semestre 2026</div>
-                <div class="info-item"><strong>Fecha Inicio:</strong> 08/02/2026</div>
-                <div class="info-item"><strong>Fecha Cierre:</strong> 12/04/2026</div>
-            </div>
-            <p>Haz clic en cualquier semana para ver los detalles completos del plan de clase.</p>
-        </header>
-        
-        <div class="weeks-container" id="weeksContainer">
-            <!-- Las semanas se cargarán dinámicamente con JavaScript -->
+        <h1 class="text-center mb-5" style="color: var(--primary-color); font-weight: 700;">PLANES DE CLASE - DISEÑO WEB I</h1>
+
+        <div id="weeks-container" class="row">
+            <!-- Cargado por JS -->
         </div>
-        
-        <footer>
-            <p>Instituto Maria Auxiliadora ISEMED - Area de Informática - Diseño Web I - Planes de Clase Primer Parcial 2026</p>
-        </footer>
     </div>
-    
-    <!-- Modal para mostrar los detalles del plan -->
-    <div class="modal" id="planModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Detalles del Plan de Clase</h2>
-                <button class="close-modal" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- El contenido del plan se cargará aquí -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="planModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Detalles de la Semana</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Contenido dinámico -->
+                </div>
             </div>
         </div>
     </div>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Datos de los planes de clase de Diseño Web I basados en el sílabo
-        const classPlans = [
+        const weeksData = [
             {
                 week: 1,
                 date: "08/02/2026",
-                topic: "Introducción a HTML",
-                assignment: "Ensayo sobre importancia y características de HTML.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "08/02/2026",
-                    competencia: "Comprender la importancia y características básicas del lenguaje HTML en el desarrollo web.",
-                    indicador: "Explica con claridad la importancia del HTML en el desarrollo web y describe sus características principales.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conceptos básicos de internet y navegadores web.", recursos: "Computadora, Navegador web" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación histórica y conceptual de HTML, su evolución y estándares.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Enlistara las etiquetas y sus funciones crear un archivo html en block de notas, aprenderán a usar app para desarrollo web", recursos: "Computadora, Procesador de texto" },
-                        { etapa: "Síntesis del tema", estrategia: "HTML es el lenguaje de marcado estándar para crear páginas web.", recursos: "" }
-                    ],
-                    tareas: "Ensayo sobre importancia y características de HTML.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "15/02/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Introducción al Diseño Web",
+                assignedTask: "Investigación sobre historia y evolución de la web.",
+                competency: "Conocer los orígenes y la evolución de la World Wide Web.",
+                indicator: "Resume los hitos más importantes de la historia del diseño web.",
+                presentationUrl: "https://informatica0101.github.io/IMA-Informatica/III_BTP_A/introduccion_diseno_web.html",
+                steps: [
+                    { stage: "INICIO", activities: "Exploración de conocimientos previos sobre Internet.", resources: "Diálogo abierto" },
+                    { stage: "DESARROLLO", activities: "Evolución de la Web 1.0 a la 4.0. El rol del W3C.", resources: "Línea de tiempo" },
+                    { stage: "CIERRE", activities: "Preguntas de comprensión.", resources: "Pizarra" }
+                ]
             },
             {
                 week: 2,
                 date: "15/02/2026",
-                topic: "HTML y CSS - Terminología básica",
-                assignment: "Crear documento HTML con párrafos y encabezados.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "15/02/2026",
-                    competencia: "Identificar y aplicar la terminología básica de HTML y CSS en la creación de documentos web.",
-                    indicador: "Aplica correctamente las etiquetas básicas de HTML para crear un documento web bien estructurado con encabezados y párrafos.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conceptos básicos de HTML.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de la estructura básica de un documento HTML y etiquetas fundamentales.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Los estudiantes crearan un archivo index.html con la estructura básica de HTML y Guardara y visualizar en el navegador.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Síntesis del tema", estrategia: "HTML define la estructura del contenido, mientras que CSS se encarga de la presentación.", recursos: "" }
-                    ],
-                    tareas: "Crear documento HTML con párrafos y encabezados.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "22/02/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Conceptos Básicos: HTTP y DNS",
+                assignedTask: "Esquema del funcionamiento de la red.",
+                competency: "Entender el protocolo de comunicación cliente-servidor.",
+                indicator: "Explica cómo se carga una página web desde el navegador.",
+                steps: []
             },
             {
                 week: 3,
                 date: "22/02/2026",
-                topic: "Hipervínculos e imágenes",
-                assignment: "Diseñaran su Curriculum Vitae con enlaces externos y galería de imágenes. ",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "22/02/2026",
-                    competencia: "Incorporar hipervínculos e imágenes en páginas web para enriquecer la navegación y contenido visual.",
-                    indicador: "Integra adecuadamente hipervínculos e imágenes en una página web, aplicando los atributos necesarios para su correcto funcionamiento y presentación.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Estructura básica de documento HTML.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de etiquetas para enlaces (a) e imágenes (img) con sus atributos.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Creación de una página web con enlaces externos y galería de imágenes.", recursos: "Computadora, Editor de texto, Imágenes" },
-                        { etapa: "Síntesis del tema", estrategia: "Los hipervínculos permiten la navegación entre recursos y las imágenes enriquecen el contenido visual.", recursos: "" }
-                    ],
-                    tareas: "Diseñar página con enlaces externos y galería de imágenes.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "01/03/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Estructura HTML5",
+                assignedTask: "Creación de una página web básica estructurada.",
+                competency: "Dominar la estructura fundamental de un documento HTML.",
+                indicator: "Escribe un documento HTML válido con sus etiquetas base.",
+                steps: []
             },
             {
                 week: 4,
                 date: "01/03/2026",
-                topic: "Listas y comentarios en HTML",
-                assignment: "Crear página con listas actividades y comidas favoritas  con comentarios en el código.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "01/03/2026",
-                    competencia: "Utilizar listas y comentarios en HTML para organizar contenido y documentar el código.",
-                    indicador: "Organiza información mediante listas HTML y documenta el código con comentarios para mejorar su mantenibilidad.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Estructura básica de HTML y etiquetas de contenido.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de etiquetas de listas (ul, ol, li) y comentarios (<!-- -->).", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Los estudiantes realizaran ejercicios para la creación de una página web con diferentes tipos de listas y comentarios en el código.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Síntesis del tema", estrategia: "Las listas organizan información y los comentarios ayudan a documentar y mantener el código.", recursos: "" }
-                    ],
-                    tareas: "Crear página con listas y comentarios en el código.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "08/03/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Etiquetas Semánticas",
+                assignedTask: "Maquetación de un artículo usando etiquetas semánticas.",
+                competency: "Aplicar el valor semántico a la maquetación web.",
+                indicator: "Diferencia entre etiquetas estructurales y semánticas.",
+                steps: []
             },
             {
                 week: 5,
                 date: "08/03/2026",
-                topic: "Fuentes y color de fondo con CSS",
-                assignment: "Aplicar estilos básicos a texto en la página del Curriculum con fuente, color y fondo.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "08/03/2026",
-                    competencia: "Aplicar estilos básicos de fuentes y colores de fondo utilizando CSS para mejorar la presentación visual.",
-                    indicador: "Aplica propiedades CSS de fuente, color y fondo a elementos HTML para mejorar la presentación visual de una página web.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conocimientos básicos de HTML y estructura CSS.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de propiedades CSS para fuentes (font-family, font-size) y colores (color, background-color).", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Aplicar estilos de fuente, color y fondo a una página web existente.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Síntesis del tema", estrategia: "Las propiedades de fuente y color son fundamentales para el diseño visual de una página web.", recursos: "" }
-                    ],
-                    tareas: "Aplicar estilos básicos a texto: fuente, color y fondo.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "15/03/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Introducción a CSS3",
+                assignedTask: "Aplicación de estilos básicos a la página HTML.",
+                competency: "Comprender la separación de contenido y diseño.",
+                indicator: "Aplica colores y fuentes usando archivos CSS externos.",
+                steps: []
             },
             {
                 week: 6,
                 date: "15/03/2026",
-                topic: "Alineación y formato de texto",
-                assignment: "Ejercicios CSS con reglas de alineación y formato de texto",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "15/03/2026",
-                    competencia: "Aplicar propiedades de alineación y formato de texto mediante CSS para mejorar la legibilidad.",
-                    indicador: "Utiliza propiedades CSS de alineación y formato de texto para mejorar la legibilidad y presentación de contenido web.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conocimientos de CSS básico y propiedades de texto.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de propiedades CSS para alineación (text-align) y formato (text-decoration, font-weight, font-style).", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Realización de ejercicios sobre alineación y formato de texto.", recursos: "Computadora, Guía de estudio" },
-                        { etapa: "Síntesis del tema", estrategia: "La alineación y formato adecuado del texto mejoran la legibilidad y experiencia de usuario.", recursos: "" }
-                    ],
-                    tareas: "Ejercicios sobre alineación y formato de texto.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "22/03/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Selectores y Propiedades CSS",
+                assignedTask: "Práctica de selectores avanzados y modelo de caja.",
+                competency: "Utilizar selectores precisos para aplicar estilos.",
+                indicator: "Modifica el modelo de caja (box model) de diversos elementos.",
+                steps: []
             },
             {
                 week: 7,
                 date: "22/03/2026",
-                topic: "Tablas y etiquetas div/span",
-                assignment: "Crear tabla sencilla y usar div/span para estructurar contenido.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "22/03/2026",
-                    competencia: "Utilizar tablas y las etiquetas div y span para estructurar y organizar el contenido web.",
-                    indicador: "Estructura contenido web utilizando tablas para datos tabulares y etiquetas div/span para agrupar y aplicar estilos a bloques de contenido.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conocimientos de HTML y CSS básico.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de etiquetas de tabla (table, tr, td, th) y contenedores (div, span).", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Crear una tabla de datos y utilizar div y span para agrupar y estilizar contenido.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Síntesis del tema", estrategia: "Las tablas organizan datos tabulares, mientras que div y span permiten agrupar y aplicar estilos a bloques de contenido.", recursos: "" }
-                    ],
-                    tareas: "Crear tabla sencilla y usar div/span para estructurar contenido.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "29/03/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Layouts: Flexbox",
+                assignedTask: "Diseño de un menú responsivo con Flexbox.",
+                competency: "Implementar diseños flexibles y alineaciones complejas.",
+                indicator: "Crea layouts dinámicos sin usar tablas ni flotados.",
+                steps: []
             },
             {
                 week: 8,
                 date: "29/03/2026",
-                topic: "CSS: selectores y propiedades",
-                assignment: "Aplicar estilos avanzados: bordes, fondos, decoración de enlaces.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "29/03/2026",
-                    competencia: "Aplicar selectores CSS y propiedades avanzadas para crear diseños web más complejos y estilizados.",
-                    indicador: "Aplica selectores CSS (clase, id, descendiente) y propiedades avanzadas (bordes, fondos, decoración de enlaces) para crear diseños web más elaborados.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conocimientos de CSS básico y estructura HTML.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de selectores CSS (clase, id, descendiente) y propiedades avanzadas (border, background, text-decoration).", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Aplicar estilos avanzados a una página web utilizando diferentes selectores CSS.", recursos: "Computadora, Editor de texto" },
-                        { etapa: "Síntesis del tema", estrategia: "Los selectores CSS permiten aplicar estilos de manera específica y las propiedades avanzadas enriquecen el diseño visual.", recursos: "" }
-                    ],
-                    tareas: "Aplicar estilos avanzados: bordes, fondos, decoración de enlaces.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "05/04/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Layouts: CSS Grid",
+                assignedTask: "Diseño de un dashboard usando Grid Layout.",
+                competency: "Dominar el sistema bidimensional de cuadrículas en CSS.",
+                indicator: "Maqueta estructuras de página complejas con CSS Grid.",
+                steps: []
             },
             {
                 week: 9,
                 date: "05/04/2026",
-                topic: "Revisión de cuadernos y guía",
-                assignment: "Revisión de ejercicios y entrega de guía de estudio.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "III Informática 'A'",
-                    asignatura: "Diseño Web I",
-                    fecha: "05/04/2026",
-                    competencia: "Consolidar los conocimientos adquiridos durante el parcial mediante revisión y práctica.",
-                    indicador: "Organiza y revisa sus apuntes y ejercicios, demostrando comprensión de los temas vistos durante el parcial mediante la guía de estudio.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Todos los temas vistos durante el parcial.", recursos: "Cuaderno, Guía de estudio" },
-                        { etapa: "Actividad guiada", estrategia: "Revisión general de temas, resolución de dudas y ejercicios de repaso.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Revisión y organización del cuaderno, completar guía de estudio.", recursos: "Cuaderno, Guía de estudio" },
-                        { etapa: "Síntesis del tema", estrategia: "La revisión sistemática y organización del material de estudio son clave para el aprendizaje efectivo.", recursos: "" }
-                    ],
-                    tareas: "Revisión de ejercicios y entrega de guía de estudio.",
-                    criterios: "Orden, presentación, completitud",
-                    entrega: "12/04/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Revisión y Optimización",
+                assignedTask: "Validación W3C y corrección de estilos.",
+                competency: "Garantizar la calidad y estándares del código web.",
+                indicator: "Corrige errores de validación y optimiza el código CSS.",
+                steps: []
             }
         ];
 
-        // Función para renderizar las semanas
         function renderWeeks() {
-            const container = document.getElementById('weeksContainer');
-            container.innerHTML = '';
-            
-            classPlans.forEach(plan => {
-                const weekCard = document.createElement('div');
-                weekCard.className = 'week-card';
-                weekCard.setAttribute('data-week', plan.week);
-                
-                weekCard.innerHTML = `
-                    <div class="week-number">Semana ${plan.week}</div>
-                    <div class="week-date">${plan.date}</div>
-                    <div class="week-topic">${plan.topic}</div>
-                    <div class="week-assignment">
-                        <strong>Tarea asignada:</strong> ${plan.assignment}
-                    </div>
-                    <div style="margin-top: 15px;">
-                        <button class="btn" onclick="openPlanModal(${plan.week - 1})">Ver detalles</button>
+            const container = document.getElementById('weeks-container');
+            weeksData.forEach(w => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4';
+                col.id = `week-${w.week}`;
+                col.innerHTML = `
+                    <div class="card week-card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Semana ${w.week}</h4>
+                            <p class="text-muted small">${w.date}</p>
+                            <h5>${w.topic}</h5>
+                            <p class="card-text"><strong>Tarea:</strong> ${w.assignedTask}</p>
+                            <button class="btn btn-primary" onclick="openPlanModal(${w.week})">Ver detalles</button>
+                        </div>
                     </div>
                 `;
-                
-                container.appendChild(weekCard);
+                container.appendChild(col);
             });
         }
-        
-        // Función para abrir el modal con los detalles del plan
-        function openPlanModal(planIndex) {
-            // Asegurar que el modal sea visible para impresión
-            const modal = document.getElementById('planModal');
-            modal.style.display = 'block';
-            
-            const plan = classPlans[planIndex];
+
+        function openPlanModal(weekNum) {
+            const w = weeksData.find(x => x.week === weekNum);
             const modalTitle = document.getElementById('modalTitle');
             const modalBody = document.getElementById('modalBody');
-            
-            modalTitle.textContent = `Semana ${plan.week}: ${plan.topic}`;
-            
-            // Construir el contenido del modal
-            let etapasHTML = '';
-            plan.details.etapas.forEach(etapa => {
-                etapasHTML += `
-                    <tr>
-                        <td>${etapa.etapa}</td>
-                        <td>${etapa.estrategia}</td>
-                        <td>${etapa.recursos}</td>
-                    </tr>
-                `;
-            });
-            
-            modalBody.innerHTML = `
-                <div class="plan-detail">
-                    <h3>Información General</h3>
-                    <table class="detail-table">
-                        <tr><td>Docente</td><td>${plan.details.docente}</td></tr>
-                        <tr><td>Período</td><td>${plan.details.periodo}</td></tr>
-                        <tr><td>Grado</td><td>${plan.details.grado}</td></tr>
-                        <tr><td>Asignatura</td><td>${plan.details.asignatura}</td></tr>
-                        <tr><td>Fecha</td><td>${plan.details.fecha}</td></tr>
-                    </table>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Competencia de la Unidad</h3>
-                    <p>${plan.details.competencia}</p>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Indicador de logro</h3>
-                    <p>${plan.details.indicador}</p>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Etapas de la Clase</h3>
-                    <table class="stages-table">
-                        <thead>
-                            <tr>
-                                <th>ETAPAS</th>
-                                <th>ESTRATEGIAS DE ENSEÑANZA APRENDIZAJE</th>
-                                <th>RECURSOS</th>
-                            </tr>
-                        </thead>
+
+            modalTitle.innerText = `Semana ${w.week}: ${w.topic}`;
+
+            let stepsHtml = '';
+            if(w.steps && w.steps.length > 0) {
+                stepsHtml = `
+                    <h6 class="mt-4">Etapas de la Clase:</h6>
+                    <table class="table table-sm table-striped mt-2">
+                        <thead><tr><th>Etapa</th><th>Actividades</th><th>Recursos</th></tr></thead>
                         <tbody>
-                            ${etapasHTML}
+                            ${w.steps.map(s => `<tr><td>${s.stage}</td><td>${s.activities}</td><td>${s.resources}</td></tr>`).join('')}
                         </tbody>
                     </table>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Asignación de Tareas</h3>
-                    <p>${plan.details.tareas}</p>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Evaluación</h3>
-                    <table class="detail-table">
-                        <tr><td>Criterios de Evaluación</td><td>${plan.details.criterios}</td></tr>
-                        <tr><td>Fecha de entrega</td><td>${plan.details.entrega}</td></tr>
-                        <tr><td>Ponderación</td><td>${plan.details.ponderacion}</td></tr>
-                    </table>
-                </div>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn btn-secondary" id="closeModalBtn">Cerrar</button>
+                `;
+            }
+
+            let presBtnHtml = '';
+            if(w.presentationUrl) {
+                presBtnHtml = `
+                    <div class="mt-4 text-center">
+                        <a href="${w.presentationUrl}" target="_blank" class="btn btn-success">
+                            <i class="bi bi-easel me-1"></i> Ver Presentación
+                        </a>
+                    </div>
+                `;
+            }
+
+            modalBody.innerHTML = `
+                <div class="p-2">
+                    <p><strong>Competencia:</strong> ${w.competency}</p>
+                    <p><strong>Indicador de logro:</strong> ${w.indicator}</p>
+                    ${stepsHtml}
+                    ${presBtnHtml}
                 </div>
             `;
-            
-            // Mostrar el modal
-            modal.style.display = 'block';
-            
-            // Añadir evento para cerrar el modal
-            document.getElementById('closeModalBtn').addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
+
+            const myModal = new bootstrap.Modal(document.getElementById('planModal'));
+            myModal.show();
         }
-        
-        // Función para cerrar el modal
-        function closeModal() {
-            document.getElementById('planModal').style.display = 'none';
-        }
-        
-        // Inicializar la fecha actual
-        function initCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('es-ES', options);
-        }
-        
-        // Inicializar la aplicación cuando se cargue la página
-        document.addEventListener('DOMContentLoaded', () => {
-            renderWeeks();
-            initCurrentDate();
-            
-            // Configurar el botón de cerrar modal
-            document.getElementById('closeModal').addEventListener('click', closeModal);
-            
-            // Cerrar el modal al hacer clic fuera del contenido
-            document.getElementById('planModal').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('planModal')) {
-                    closeModal();
-                }
-            });
-        });
+
+        document.addEventListener('DOMContentLoaded', renderWeeks);
     </script>
 </body>
 </html>

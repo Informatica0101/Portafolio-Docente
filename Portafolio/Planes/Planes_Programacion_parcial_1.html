@@ -3,773 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planes de Clase - Programación I</title>
+    <title>PLAN DE CLASE - Programación I</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
         }
-        
+
         body {
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
             color: #333;
-            line-height: 1.6;
-            padding: 20px;
+            padding-top: 2rem;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #2c3e50;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-        }
-        
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        
-        .info-box {
-            background-color: #ecf0f1;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .info-item {
-            flex: 1;
-            min-width: 200px;
-            margin: 5px;
-        }
-        
-        .info-item strong {
-            color: #2c3e50;
-        }
-        
-        .weeks-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
+
         .week-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            border-left: 5px solid #3498db;
+            border: none;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
         }
-        
+
         .week-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-        
-        .week-number {
-            font-size: 1.5rem;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-        
-        .week-date {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .week-topic {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .week-assignment {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 40px auto;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: modalFade 0.3s;
-        }
-        
-        @keyframes modalFade {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+
         .modal-header {
-            background-color: #2c3e50;
+            background-color: var(--primary-color);
             color: white;
-            padding: 20px;
-            border-radius: 10px 10px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-        
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        
-        .close-modal {
-            background: none;
+
+        .btn-primary {
+            background-color: var(--secondary-color);
             border: none;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-            line-height: 1;
         }
-        
-        .modal-body {
-            padding: 25px;
-        }
-        
-        .plan-detail {
-            margin-bottom: 20px;
-        }
-        
-        .plan-detail h3 {
-            color: #2c3e50;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .detail-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        .detail-table td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        
-        .detail-table td:first-child {
-            font-weight: bold;
-            background-color: #f8f9fa;
-            width: 30%;
-        }
-        
-        .stages-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .stages-table th, .stages-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        
-        .stages-table th {
-            background-color: #2c3e50;
-            color: white;
-        }
-        
-        .stages-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #2980b9;
-        }
-        
-        .btn-secondary {
-            background-color: #7f8c8d;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #636e72;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-        
-        /* Estilos de impresión */
-        @media print {
-            body {
-                background-color: white !important;
-                color: black !important;
-                padding: 0;
-                margin: 0;
-            }
-            
-            .container {
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            
-            .modal {
-                display: block !important;
-                position: static !important;
-                background-color: white !important;
-                width: 100% !important;
-                height: auto !important;
-                overflow: visible !important;
-            }
-            
-            .modal-content {
-                margin: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                box-shadow: none !important;
-                border: 1px solid #000 !important;
-                page-break-inside: avoid;
-            }
-            
-            .modal-header {
-                background-color: #fff !important;
-                color: #000 !important;
-                border-bottom: 2px solid #000 !important;
-            }
-            
-            .close-modal {
-                display: none !important;
-            }
-            
-            .btn, .week-card {
-                display: none !important;
-            }
-            
-            .weeks-container, footer, .info-box {
-                display: none !important;
-            }
-            
-            /* Asegurar que las tablas sean visibles */
-            .detail-table, .stages-table {
-                width: 100% !important;
-                border: 1px solid #000 !important;
-                page-break-inside: avoid;
-            }
-            
-            .detail-table td, .stages-table th, .stages-table td {
-                border: 1px solid #000 !important;
-                padding: 8px !important;
-            }
-            
-            .detail-table td:first-child {
-                background-color: #f0f0f0 !important;
-                font-weight: bold !important;
-            }
-            
-            .stages-table th {
-                background-color: #ddd !important;
-                color: #000 !important;
-            }
-            
-            .stages-table tr:nth-child(even) {
-                background-color: #f5f5f5 !important;
-            }
-            
-            /* Mejorar legibilidad del texto */
-            h1, h2, h3 {
-                color: #000 !important;
-                page-break-after: avoid;
-            }
-            
-            .plan-detail {
-                page-break-inside: avoid;
-                margin-bottom: 15px !important;
-            }
-            
-            p {
-                page-break-inside: avoid;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .weeks-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .info-box {
-                flex-direction: column;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 20px auto;
-            }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Planes de Clase - Programación I</h1>
-            <div class="subtitle">Primer Parcial 2026 - II Informática "A"</div>
-            <div class="info-box">
-                <div class="info-item"><strong>Docente:</strong> Pablo Antonio Peña Mancia</div>
-                <div class="info-item"><strong>Período:</strong> I Semestre 2026</div>
-                <div class="info-item"><strong>Fecha Inicio:</strong> 08/02/2026</div>
-                <div class="info-item"><strong>Fecha Cierre:</strong> 12/04/2026</div>
-            </div>
-            <p>Haz clic en cualquier semana para ver los detalles completos del plan de clase.</p>
-        </header>
-        
-        <div class="weeks-container" id="weeksContainer">
-            <!-- Las semanas se cargarán dinámicamente con JavaScript -->
+        <h1 class="text-center mb-5" style="color: var(--primary-color); font-weight: 700;">PLANES DE CLASE - PROGRAMACIÓN I</h1>
+
+        <div id="weeks-container" class="row">
+            <!-- Cargado por JS -->
         </div>
-        
-        <footer>
-            <p>ISEMED - Programación I - Planes de Clase Primer Parcial 2026</p>
-            <p>Generado el <span id="currentDate"></span></p>
-        </footer>
     </div>
-    
-    <!-- Modal para mostrar los detalles del plan -->
-    <div class="modal" id="planModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Detalles del Plan de Clase</h2>
-                <button class="close-modal" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- El contenido del plan se cargará aquí -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="planModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Detalles de la Semana</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Contenido dinámico -->
+                </div>
             </div>
         </div>
     </div>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Datos de los planes de clase basados en el sílabo
-        const classPlans = [
+        const weeksData = [
             {
                 week: 1,
                 date: "08/02/2026",
                 topic: "Introducción a la Programación",
-                assignment: "Ejercicios de algoritmos con ejemplos cotidianos.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "08/02/2026",
-                    competencia: "Comprender la importancia de la programación en el desarrollo de soluciones informáticas, identificando conceptos básicos, herramientas y metodologías.",
-                    indicador: "Identifica los objetivos de la asignatura y resuelve ejercicios de algoritmos con ejemplos cotidianos.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Uso de computadoras y conceptos de informática básicos.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Discusión sobre programación, su importancia y relación con algoritmos cotidianos.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Ejercicios de algoritmos con ejemplos cotidianos.", recursos: "Cuaderno, Lápiz" },
-                        { etapa: "Síntesis del tema", estrategia: "La programación es dar instrucciones precisas a la computadora. Se utilizará PSeInt como herramienta principal.", recursos: "" }
-                    ],
-                    tareas: "Ejercicios de algoritmos con ejemplos cotidianos.",
-                    criterios: "Orden, presentación, creatividad, puntualidad",
-                    entrega: "15/02/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Ejercicios de algoritmos con ejemplos cotidianos.",
+                competency: "Comprender la importancia de la programación en el desarrollo de soluciones informáticas.",
+                indicator: "Identifica los objetivos de la asignatura y resuelve ejercicios de algoritmos con ejemplos cotidianos.",
+                presentationUrl: "https://informatica0101.github.io/IMA-Informatica/II_BTP_A/Programacion/introduccion_programacion.html",
+                steps: [
+                    { stage: "INICIO", activities: "Presentación del docente y la asignatura. Dinámica de integración.", resources: "Pizarra, marcadores" },
+                    { stage: "DESARROLLO", activities: "Explicación del concepto de algoritmo. Ejemplos de la vida real.", resources: "Presentación digital" },
+                    { stage: "CIERRE", activities: "Asignación de ejercicios prácticos. Dudas y comentarios.", resources: "Cuaderno" }
+                ]
             },
             {
                 week: 2,
                 date: "15/02/2026",
                 topic: "Clasificación y etapas de algoritmos",
-                assignment: "Cuadro conceptual sobre algoritmos y describir etapas de programación.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "15/02/2026",
-                    competencia: "Identificar y describir las etapas de desarrollo de algoritmos, aplicando métodos de representación básicos.",
-                    indicador: "Elabora un cuadro conceptual sobre algoritmos y describe sus etapas de programación.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conceptos básicos de algoritmos.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de clasificación y etapas de algoritmos.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Creación de cuadro conceptual sobre algoritmos y etapas de programación.", recursos: "Cuaderno, Lápiz" },
-                        { etapa: "Síntesis del tema", estrategia: "Un algoritmo es una secuencia lógica de pasos para resolver un problema.", recursos: "" }
-                    ],
-                    tareas: "Cuadro conceptual sobre algoritmos y descripción de etapas de programación.",
-                    criterios: "Orden, presentación, creatividad",
-                    entrega: "22/02/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Cuadro conceptual sobre algoritmos y describir etapas de programación.",
+                competency: "Conocer las etapas para la resolución de problemas mediante algoritmos.",
+                indicator: "Clasifica los algoritmos y describe correctamente las etapas de programación.",
+                steps: [
+                    { stage: "INICIO", activities: "Retroalimentación de la clase anterior.", resources: "Lluvia de ideas" },
+                    { stage: "DESARROLLO", activities: "Clasificación de algoritmos: cualitativos y cuantitativos.", resources: "Libro de texto" },
+                    { stage: "CIERRE", activities: "Elaboración de cuadro comparativo.", resources: "Cartulina" }
+                ]
             },
             {
                 week: 3,
                 date: "22/02/2026",
                 topic: "Estrategias de solución de problemas",
-                assignment: "Resolver problema usando división en subproblemas.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "22/02/2026",
-                    competencia: "Aplicar estrategias de división en subproblemas para resolver problemas de programación.",
-                    indicador: "Resuelve un problema mediante la división en subproblemas.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Conocimiento de etapas de algoritmos.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de estrategias de solución: división en subproblemas.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Resolución de un problema usando división en subproblemas.", recursos: "Cuaderno, Lápiz" },
-                        { etapa: "Síntesis del tema", estrategia: "La división en subproblemas facilita la resolución de problemas complejos.", recursos: "" }
-                    ],
-                    tareas: "Resolver un problema usando división en subproblemas.",
-                    criterios: "Claridad, orden, participación activa",
-                    entrega: "01/03/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Resolver problema usando división en subproblemas.",
+                competency: "Aplicar la técnica de 'divide y vencerás' en problemas lógicos.",
+                indicator: "Divide un problema complejo en subproblemas más sencillos.",
+                steps: [
+                    { stage: "INICIO", activities: "Planteamiento de un acertijo lógico.", resources: "Material impreso" },
+                    { stage: "DESARROLLO", activities: "Técnicas de descomposición de problemas.", resources: "Pizarra" },
+                    { stage: "CIERRE", activities: "Resolución de casos prácticos en grupo.", resources: "Hojas de trabajo" }
+                ]
             },
             {
                 week: 4,
                 date: "01/03/2026",
                 topic: "Análisis y diseño de algoritmos",
-                assignment: "Ejercicios de algoritmo en lenguaje natural.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "01/03/2026",
-                    competencia: "Analizar y diseñar algoritmos en lenguaje natural para la resolución de problemas.",
-                    indicador: "Realiza ejercicios de algoritmos en lenguaje natural.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Estrategias de solución de problemas.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Ejemplos de algoritmos en lenguaje natural.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Ejercicios de algoritmos en lenguaje natural (ej: calcular promedio).", recursos: "Cuaderno, Lápiz" },
-                        { etapa: "Síntesis del tema", estrategia: "El lenguaje natural permite expresar algoritmos de manera clara antes de codificar.", recursos: "" }
-                    ],
-                    tareas: "Ejercicios de algoritmo en lenguaje natural.",
-                    criterios: "Orden, presentación, puntualidad",
-                    entrega: "08/03/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Ejercicios de algoritmo en lenguaje natural.",
+                competency: "Realizar el análisis previo al diseño de una solución.",
+                indicator: "Define entradas, procesos y salidas de un algoritmo.",
+                steps: [
+                    { stage: "INICIO", activities: "Preguntas exploratorias sobre análisis.", resources: "Diálogo" },
+                    { stage: "DESARROLLO", activities: "Pasos para el diseño de algoritmos eficaces.", resources: "Presentación" },
+                    { stage: "CIERRE", activities: "Práctica dirigida en el aula.", resources: "Cuaderno" }
+                ]
             },
             {
                 week: 5,
                 date: "08/03/2026",
                 topic: "Programación y representación",
-                assignment: "Ejercicios de Conversión de algoritmo a instrucciones paso a paso.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "08/03/2026",
-                    competencia: "Convertir algoritmos en lenguaje natural a instrucciones paso a paso.",
-                    indicador: "Realiza conversión de algoritmos a instrucciones paso a paso.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Algoritmos en lenguaje natural.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Demostración de conversión de algoritmos a instrucciones.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Ejercicios de conversión de algoritmo a instrucciones paso a paso.", recursos: "Cuaderno, Lápiz" },
-                        { etapa: "Síntesis del tema", estrategia: "La representación paso a paso es clave para la implementación en código.", recursos: "" }
-                    ],
-                    tareas: "Ejercicios de conversión de algoritmo a instrucciones paso a paso.",
-                    criterios: "Claridad, orden, participación activa",
-                    entrega: "15/03/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Ejercicios de Conversión de algoritmo a instrucciones paso a paso.",
+                competency: "Traducir lógica mental a secuencias de instrucciones.",
+                indicator: "Representa secuencias lógicas de forma estructurada.",
+                steps: []
             },
             {
                 week: 6,
                 date: "15/03/2026",
                 topic: "Pseudocódigo y ordenación simbólica",
-                assignment: "Escribir algoritmo en pseudocódigo con simbología básica.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "15/03/2026",
-                    competencia: "Escribir algoritmos en pseudocódigo utilizando simbología básica.",
-                    indicador: "Redacta algoritmos en pseudocódigo con simbología básica.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Instrucciones paso a paso.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de pseudocódigo y simbología básica.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Escribir algoritmo en pseudocódigo (ej: calcular área de un cuadrado).", recursos: "Cuaderno, Lápiz, Computadora" },
-                        { etapa: "Síntesis del tema", estrategia: "El pseudocódigo es una representación textual de la lógica del programa.", recursos: "" }
-                    ],
-                    tareas: "Escribir algoritmo en pseudocódigo con simbología básica.",
-                    criterios: "Orden, presentación, creatividad",
-                    entrega: "22/03/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Escribir algoritmo en pseudocódigo con simbología básica.",
+                competency: "Utilizar el pseudocódigo como herramienta de diseño.",
+                indicator: "Escribe algoritmos legibles usando palabras clave.",
+                steps: []
             },
             {
                 week: 7,
                 date: "22/03/2026",
                 topic: "Diagramas de flujo",
-                assignment: "Crear diagrama de flujo para proceso cotidiano (ej: hacer café).",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "22/03/2026",
-                    competencia: "Diseñar diagramas de flujo para representar procesos cotidianos.",
-                    indicador: "Crea un diagrama de flujo para un proceso cotidiano (ej: hacer café).",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Pseudocódigo y simbología básica.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Explicación de símbolos y construcción de diagramas de flujo.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Crear diagrama de flujo para un proceso cotidiano.", recursos: "Cuaderno, Lápiz, Software de diagramación" },
-                        { etapa: "Síntesis del tema", estrategia: "Los diagramas de flujo permiten visualizar la secuencia lógica de un proceso.", recursos: "" }
-                    ],
-                    tareas: "Crear diagrama de flujo para proceso cotidiano.",
-                    criterios: "Claridad, orden, creatividad",
-                    entrega: "29/03/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Crear diagrama de flujo para proceso cotidiano (ej: hacer café).",
+                competency: "Representar gráficamente la lógica de un proceso.",
+                indicator: "Utiliza la simbología estándar para diagramas de flujo.",
+                steps: []
             },
             {
                 week: 8,
                 date: "29/03/2026",
-                topic: "Pseudocódigo en PSeint",
-                assignment: "Ejercicios de Pseudocódigo en Pesent y en Pseudocode app.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "29/03/2026",
-                    competencia: "Utilizar PSeint para escribir, depurar y ejecutar pseudocódigos.",
-                    indicador: "Realiza ejercicios de pseudocódigo en PSeint y Pseudocode app.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Diagramas de flujo y pseudocódigo.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Demostración del uso de PSeint y Pseudocode app.", recursos: "Proyector, Computadora" },
-                        { etapa: "Actividad independiente", estrategia: "Ejercicios de pseudocódigo en PSeint (ej: suma de dos números).", recursos: "Computadora, PSeint" },
-                        { etapa: "Síntesis del tema", estrategia: "PSeint facilita el aprendizaje de lógica de programación mediante pseudocódigo.", recursos: "" }
-                    ],
-                    tareas: "Ejercicios de pseudocódigo en PSeint y Pseudocode app.",
-                    criterios: "Participación activa, ejercicios en clase",
-                    entrega: "05/04/2026",
-                    ponderacion: "5%"
-                }
+                topic: "Pseudocódigo en PSeInt",
+                assignedTask: "Ejercicios de Pseudocódigo en Pesent y en Pseudocode app.",
+                competency: "Familiarizarse con herramientas de desarrollo.",
+                indicator: "Ejecuta y prueba pseudocódigo en software especializado.",
+                steps: []
             },
             {
                 week: 9,
                 date: "05/04/2026",
                 topic: "Revisión y guía de estudio",
-                assignment: "Revisión de ejercicios y entrega de guía de estudio.",
-                details: {
-                    docente: "Pablo Antonio Peña Mancia",
-                    periodo: "I Semestre",
-                    grado: "II Informática 'A'",
-                    asignatura: "Programación I",
-                    fecha: "05/04/2026",
-                    competencia: "Consolidar los temas vistos y prepararse para la evaluación parcial.",
-                    indicador: "Resuelve dudas, revisa ejercicios y completa guía de estudio.",
-                    etapas: [
-                        { etapa: "Pre saberes", estrategia: "Todos los temas del parcial.", recursos: "Computadora" },
-                        { etapa: "Actividad guiada", estrategia: "Repaso general, resolución de dudas y ejercicios.", recursos: "Proyector, Presentación" },
-                        { etapa: "Actividad independiente", estrategia: "Revisión de ejercicios y elaboración de guía de estudio.", recursos: "Cuaderno, Lápiz, Computadora" },
-                        { etapa: "Síntesis del tema", estrategia: "La práctica constante es fundamental para el dominio de la programación.", recursos: "" }
-                    ],
-                    tareas: "Guía de estudio.",
-                    criterios: "Orden, presentación, completitud",
-                    entrega: "12/04/2026",
-                    ponderacion: "5%"
-                }
+                assignedTask: "Revisión de ejercicios y entrega de guía de estudio.",
+                competency: "Consolidar los conocimientos adquiridos en el parcial.",
+                indicator: "Resuelve correctamente la guía de estudio del parcial.",
+                steps: []
             }
         ];
 
-        // Función para renderizar las semanas
         function renderWeeks() {
-            const container = document.getElementById('weeksContainer');
-            container.innerHTML = '';
-            
-            classPlans.forEach(plan => {
-                const weekCard = document.createElement('div');
-                weekCard.className = 'week-card';
-                weekCard.setAttribute('data-week', plan.week);
-                
-                weekCard.innerHTML = `
-                    <div class="week-number">Semana ${plan.week}</div>
-                    <div class="week-date">${plan.date}</div>
-                    <div class="week-topic">${plan.topic}</div>
-                    <div class="week-assignment">
-                        <strong>Tarea asignada:</strong> ${plan.assignment}
-                    </div>
-                    <div style="margin-top: 15px;">
-                        <button class="btn" onclick="openPlanModal(${plan.week - 1})">Ver detalles</button>
+            const container = document.getElementById('weeks-container');
+            weeksData.forEach(w => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4';
+                col.id = `week-${w.week}`;
+                col.innerHTML = `
+                    <div class="card week-card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Semana ${w.week}</h4>
+                            <p class="text-muted small">${w.date}</p>
+                            <h5>${w.topic}</h5>
+                            <p class="card-text"><strong>Tarea:</strong> ${w.assignedTask}</p>
+                            <button class="btn btn-primary" onclick="openPlanModal(${w.week})">Ver detalles</button>
+                        </div>
                     </div>
                 `;
-                
-                container.appendChild(weekCard);
+                container.appendChild(col);
             });
         }
-        
-        // Función para abrir el modal con los detalles del plan
-        function openPlanModal(planIndex) {
-            // Asegurar que el modal sea visible para impresión
-            const modal = document.getElementById('planModal');
-            modal.style.display = 'block';
-            
-            const plan = classPlans[planIndex];
+
+        function openPlanModal(weekNum) {
+            const w = weeksData.find(x => x.week === weekNum);
             const modalTitle = document.getElementById('modalTitle');
             const modalBody = document.getElementById('modalBody');
-            
-            modalTitle.textContent = `Semana ${plan.week}: ${plan.topic}`;
-            
-            // Construir el contenido del modal
-            let etapasHTML = '';
-            plan.details.etapas.forEach(etapa => {
-                etapasHTML += `
-                    <tr>
-                        <td>${etapa.etapa}</td>
-                        <td>${etapa.estrategia}</td>
-                        <td>${etapa.recursos}</td>
-                    </tr>
-                `;
-            });
-            
-            modalBody.innerHTML = `
-                <div class="plan-detail">
-                    <h3>Información General</h3>
-                    <table class="detail-table">
-                        <tr><td>Docente</td><td>${plan.details.docente}</td></tr>
-                        <tr><td>Período</td><td>${plan.details.periodo}</td></tr>
-                        <tr><td>Grado</td><td>${plan.details.grado}</td></tr>
-                        <tr><td>Asignatura</td><td>${plan.details.asignatura}</td></tr>
-                        <tr><td>Fecha</td><td>${plan.details.fecha}</td></tr>
-                    </table>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Competencia de la Unidad</h3>
-                    <p>${plan.details.competencia}</p>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Indicador de logro</h3>
-                    <p>${plan.details.indicador}</p>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Etapas de la Clase</h3>
-                    <table class="stages-table">
-                        <thead>
-                            <tr>
-                                <th>ETAPAS</th>
-                                <th>ESTRATEGIAS DE ENSEÑANZA APRENDIZAJE</th>
-                                <th>RECURSOS</th>
-                            </tr>
-                        </thead>
+
+            modalTitle.innerText = `Semana ${w.week}: ${w.topic}`;
+
+            let stepsHtml = '';
+            if(w.steps && w.steps.length > 0) {
+                stepsHtml = `
+                    <h6 class="mt-4">Etapas de la Clase:</h6>
+                    <table class="table table-sm table-striped mt-2">
+                        <thead><tr><th>Etapa</th><th>Actividades</th><th>Recursos</th></tr></thead>
                         <tbody>
-                            ${etapasHTML}
+                            ${w.steps.map(s => `<tr><td>${s.stage}</td><td>${s.activities}</td><td>${s.resources}</td></tr>`).join('')}
                         </tbody>
                     </table>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Asignación de Tareas</h3>
-                    <p>${plan.details.tareas}</p>
-                </div>
-                
-                <div class="plan-detail">
-                    <h3>Evaluación</h3>
-                    <table class="detail-table">
-                        <tr><td>Criterios de Evaluación</td><td>${plan.details.criterios}</td></tr>
-                        <tr><td>Fecha de entrega</td><td>${plan.details.entrega}</td></tr>
-                        <tr><td>Ponderación</td><td>${plan.details.ponderacion}</td></tr>
-                    </table>
-                </div>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn btn-secondary" id="closeModalBtn">Cerrar</button>
+                `;
+            }
+
+            let presBtnHtml = '';
+            if(w.presentationUrl) {
+                presBtnHtml = `
+                    <div class="mt-4 text-center">
+                        <a href="${w.presentationUrl}" target="_blank" class="btn btn-success">
+                            <i class="bi bi-easel me-1"></i> Ver Presentación
+                        </a>
+                    </div>
+                `;
+            }
+
+            modalBody.innerHTML = `
+                <div class="p-2">
+                    <p><strong>Competencia:</strong> ${w.competency}</p>
+                    <p><strong>Indicador de logro:</strong> ${w.indicator}</p>
+                    ${stepsHtml}
+                    ${presBtnHtml}
                 </div>
             `;
-            
-            // Mostrar el modal
-            modal.style.display = 'block';
-            
-            // Añadir evento para cerrar el modal
-            document.getElementById('closeModalBtn').addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
+
+            const myModal = new bootstrap.Modal(document.getElementById('planModal'));
+            myModal.show();
         }
-        
-        // Función para cerrar el modal
-        function closeModal() {
-            document.getElementById('planModal').style.display = 'none';
-        }
-        
-        // Inicializar la fecha actual
-        function initCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('es-ES', options);
-        }
-        
-        // Inicializar la aplicación cuando se cargue la página
-        document.addEventListener('DOMContentLoaded', () => {
-            renderWeeks();
-            initCurrentDate();
-            
-            // Configurar el botón de cerrar modal
-            document.getElementById('closeModal').addEventListener('click', closeModal);
-            
-            // Cerrar el modal al hacer clic fuera del contenido
-            document.getElementById('planModal').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('planModal')) {
-                    closeModal();
-                }
-            });
-        });
+
+        document.addEventListener('DOMContentLoaded', renderWeeks);
     </script>
 </body>
 </html>
