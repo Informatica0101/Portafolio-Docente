@@ -19,6 +19,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333;
             background-color: #f8f9fa;
+            padding-top: 0;
         }
         
         .navbar-brand {
@@ -30,6 +31,7 @@
             color: white;
             padding: 3rem 0;
             margin-bottom: 2rem;
+            border-radius: 0 0 15px 15px;
         }
         
         .profile-img {
@@ -54,6 +56,8 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: transform 0.3s, box-shadow 0.3s;
             height: 100%;
+            margin-bottom: 20px;
+            overflow: hidden;
         }
         
         .card:hover {
@@ -132,6 +136,30 @@
             margin: 2px;
         }
         
+        .project-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        
+        .project-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .section-spacing {
+            margin-bottom: 40px;
+        }
+        
+        .content-wrapper {
+            min-height: calc(100vh - 200px);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
         @media (max-width: 768px) {
             .profile-img {
                 width: 150px;
@@ -140,6 +168,15 @@
             
             .carousel-item img {
                 height: 250px;
+            }
+            
+            .project-logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .card-body {
+                padding: 1rem;
             }
         }
     </style>
@@ -160,13 +197,16 @@
                         <a class="nav-link active" href="#inicio">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#perfil">Perfil Profesional</a>
+                        <a class="nav-link" href="#perfil">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#proyectos">Proyectos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#silabos">Sílabos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#planes">Planes de Clase</a>
+                        <a class="nav-link" href="#planes">Planes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#evidencias">Evidencias</a>
@@ -182,457 +222,484 @@
     <!-- Encabezado con perfil -->
     <section id="inicio" class="profile-header">
         <div class="container text-center">
-            <img src="imagenes/foto_perfil.jpg" alt="Foto de perfil de Pablo Antonio Peña Mancia" class="profile-img mb-3">
+            <img src="imagenes/foto_perfil.png" alt="Foto de perfil de Pablo Antonio Peña Mancia" class="profile-img mb-3">
             <h1>Pablo Antonio Peña Mancia</h1>
             <p class="lead">Docente de Informática | Técnico en Computación y Electrónica | Desarrollador Web</p>
             <div class="mt-3">
-                <span class="badge bg-light text-dark me-2">Ingeniería Eléctrica Industrial</span>
-                <span class="badge bg-light text-dark me-2">Docente de Informática</span>
-                <span class="badge bg-light text-dark me-2">Desarrollador Web</span>
-                <span class="badge bg-light text-dark">Técnico en Electrónica</span>
+                <span class="badge bg-light text-dark me-2 mb-2">Ingeniería Eléctrica Industrial</span>
+                <span class="badge bg-light text-dark me-2 mb-2">Docente de Informática</span>
+                <span class="badge bg-light text-dark me-2 mb-2">Desarrollador Web</span>
+                <span class="badge bg-light text-dark mb-2">Técnico en Electrónica</span>
             </div>
         </div>
     </section>
 
-    <!-- Sección de perfil profesional -->
-    <section id="perfil" class="py-5">
-        <div class="container">
-            <h2 class="section-title">Perfil Profesional</h2>
-            
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Resumen Profesional</h5>
-                            <p class="card-text">
-                                Profesional en formación y docente comprometido con la educación integral y el desarrollo técnico. 
-                                Actualmente en proceso de completar la carrera de Ingeniería Eléctrica Industrial, acumulando 20 clases cursadas. 
-                                Formación complementaria como bachiller en Mercadotecnia, Ciencias y Letras, además de formación técnica en Computación y Electrónica.
-                            </p>
-                            <p class="card-text">
-                                Con experiencia en diversas áreas educativas, he impartido clases en materias como informática, matemáticas, filosofía, historia y sociología. 
-                                La labor docente se ha desarrollado en instituciones reconocidas, tales como el Instituto Tecnológico VANCE y el Instituto María Auxiliadora (programa ISEMED).
-                            </p>
-                            <p class="card-text">
-                                Mi filosofía educativa se caracteriza por el fomento del pensamiento crítico y la integración de conocimientos teóricos y prácticos. 
-                                Mi enfoque pedagógico se basa en la actualización constante, la adaptabilidad a las necesidades de los estudiantes y el compromiso de promover un ambiente de aprendizaje colaborativo y dinámico.
-                            </p>
+    <!-- Contenido principal -->
+    <div class="content-wrapper">
+        <!-- Sección de perfil profesional -->
+        <section id="perfil" class="py-4">
+            <div class="container">
+                <h2 class="section-title">Perfil Profesional</h2>
+                
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Resumen Profesional</h5>
+                                <p class="card-text">
+                                    Profesional en formación y docente comprometido con la educación integral y el desarrollo técnico. 
+                                    Actualmente en proceso de completar la carrera de Ingeniería Eléctrica Industrial, acumulando 20 clases cursadas. 
+                                    Formación complementaria como bachiller en Mercadotecnia, Ciencias y Letras, además de formación técnica en Computación y Electrónica.
+                                </p>
+                                <p class="card-text">
+                                    Con experiencia en diversas áreas educativas, he impartido clases en materias como informática, matemáticas, filosofía, historia y sociología. 
+                                    La labor docente se ha desarrollado en instituciones reconocidas, tales como el Instituto Tecnológico VANCE y el Instituto María Auxiliadora (programa ISEMED).
+                                </p>
+                                <p class="card-text">
+                                    Mi filosofía educativa se caracteriza por el fomento del pensamiento crítico y la integración de conocimientos teóricos y prácticos. 
+                                    Mi enfoque pedagógico se basa en la actualización constante, la adaptabilidad a las necesidades de los estudiantes y el compromiso de promover un ambiente de aprendizaje colaborativo y dinámico.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title"><i class="bi bi-briefcase me-2"></i>Experiencia Profesional</h5>
-                                    <div class="timeline">
-                                        <div class="timeline-item">
-                                            <h6>Profesor de Informática</h6>
-                                            <p class="small text-muted mb-1">Instituto María Auxiliadora (ISEMED)</p>
-                                            <p class="small text-muted mb-0">Desde: 11 de agosto 2024 - Actualmente</p>
-                                        </div>
-                                        <div class="timeline-item">
-                                            <h6>Profesor de Matemáticas</h6>
-                                            <p class="small text-muted mb-1">Centro de Educación Media No Gubernamental Tecnológico Vance</p>
-                                            <p class="small text-muted mb-0">Febrero 2016 - Agosto 2016</p>
-                                        </div>
-                                        <div class="timeline-item">
-                                            <h6>Instalador de GPS Vehicular</h6>
-                                            <p class="small text-muted mb-1">TRACKLINK</p>
-                                            <p class="small text-muted mb-0">Combina docencia con práctica profesional</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-briefcase me-2"></i>Experiencia Profesional</h5>
+                                        <div class="timeline">
+                                            <div class="timeline-item">
+                                                <h6>Profesor de Informática</h6>
+                                                <p class="small text-muted mb-1">Instituto María Auxiliadora (ISEMED)</p>
+                                                <p class="small text-muted mb-0">Desde: 11 de agosto 2024 - Actualmente</p>
+                                                <p class="small mt-1">Imparto clases de informática, programación y diseño web.</p>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <h6>Profesor de Matemáticas</h6>
+                                                <p class="small text-muted mb-1">Centro de Educación Media No Gubernamental Tecnológico Vance</p>
+                                                <p class="small text-muted mb-0">Febrero 2016 - Agosto 2016</p>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <h6>Instalador de GPS Vehicular</h6>
+                                                <p class="small text-muted mb-1">TRACKLINK</p>
+                                                <p class="small text-muted mb-0">Combina docencia con práctica profesional</p>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <h6>Empleado Estrella 2022</h6>
+                                                <p class="small text-muted mb-1">Inversiones La Paz</p>
+                                                <p class="small mt-1">Reconocimiento por desempeño excepcional.</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title"><i class="bi bi-journal-check me-2"></i>Logros Destacados</h5>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item px-0">Diseño de manual de capacitación técnica para instaladores de GPS</li>
-                                        <li class="list-group-item px-0">Reconocimiento como Empleado Estrella 2022 en Inversiones La Paz</li>
-                                        <li class="list-group-item px-0">Altas evaluaciones recibidas como docente</li>
-                                        <li class="list-group-item px-0">Creación de material didáctico para clases de informática</li>
-                                        <li class="list-group-item px-0">Implementación de proyectos tecnológicos en el aula</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-person-vcard me-2"></i>Datos Personales</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><strong>DNI:</strong> 0511198901197</li>
-                                <li class="mb-2"><strong>Título Universitario:</strong> Pasante de Ingeniería Eléctrica Industrial</li>
-                                <li class="mb-2"><strong>Años de Servicio:</strong> 7 meses</li>
-                                <li class="mb-2"><strong>Tiempo en centro actual:</strong> 4 meses</li>
-                                <li class="mb-2"><strong>Teléfono:</strong> 88422786</li>
-                                <li class="mb-2"><strong>Email:</strong> azgheall@gmail.com</li>
-                                <li class="mb-2"><strong>Estado Civil:</strong> Casado</li>
-                                <li class="mb-2"><strong>Residencia:</strong> San Pedro Sula, Honduras</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-tools me-2"></i>Habilidades Técnicas</h5>
-                            <div class="mb-3">
-                                <h6 class="small">Informática y Programación</h6>
-                                <span class="badge skill-badge">JavaScript</span>
-                                <span class="badge skill-badge">HTML/CSS</span>
-                                <span class="badge skill-badge">Desarrollo Web</span>
-                                <span class="badge skill-badge">Mantenimiento de Computadoras</span>
-                                <span class="badge skill-badge">Redes</span>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="small">Electrónica</h6>
-                                <span class="badge skill-badge">Instalación de GPS</span>
-                                <span class="badge skill-badge">Circuitos Electrónicos</span>
-                                <span class="badge skill-badge">Sistemas Eléctricos</span>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="small">Habilidades Docentes</h6>
-                                <span class="badge skill-badge">Diseño Curricular</span>
-                                <span class="badge skill-badge">Evaluación Educativa</span>
-                                <span class="badge skill-badge">Tecnología Educativa</span>
-                                <span class="badge skill-badge">Gestión del Aula</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección de sílabos -->
-    <section id="silabos" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title">Sílabos de Asignaturas</h2>
-            <p class="lead mb-4">Documentos curriculares para las asignaturas a mi cargo</p>
-            
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card subject-card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Undécimo - Informática Sección A</h5>
-                            <h6 class="card-subtitle mb-3 text-muted">Programación - Primer Parcial</h6>
-                            <p class="card-text">
-                                Sílabo para la asignatura de Programación correspondiente al primer parcial del año lectivo. 
-                                Incluye objetivos, contenidos, metodología y sistema de evaluación.
-                            </p>
-                            <div class="mt-4">
-                                <a href="Portafolio/Silabos/Silabo_Undecimo_Programacion_parcial_1.html" class="btn btn-primary">
-                                    <i class="bi bi-file-earmark-text me-1"></i> Ver Sílabo Completo
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 mb-4">
-                    <div class="card subject-card web h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Duodécimo - Informática Sección A</h5>
-                            <h6 class="card-subtitle mb-3 text-muted">Diseño Web I - Primer Parcial</h6>
-                            <p class="card-text">
-                                Sílabo para la asignatura de Diseño Web I correspondiente al primer parcial del año lectivo. 
-                                Incluye fundamentos de HTML, CSS y principios de diseño web responsivo.
-                            </p>
-                            <div class="mt-4">
-                                <a href="Portafolio/Silabos/SIlabo_Duodecimo_DW.html" class="btn btn-primary">
-                                    <i class="bi bi-file-earmark-text me-1"></i> Ver Sílabo Completo
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Comentario para futuros sílabos -->
-            <!-- 
-            Para agregar nuevos sílabos, insertar aquí nuevas tarjetas (cards) con la estructura:
-            <div class="col-md-6 mb-4">
-                <div class="card subject-card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">[NOMBRE ASIGNATURA]</h5>
-                        <h6 class="card-subtitle mb-3 text-muted">[DESCRIPCIÓN]</h6>
-                        <p class="card-text">[RESUMEN DEL CONTENIDO]</p>
-                        <div class="mt-4">
-                            <a href="[ENLACE AL SÍLABO]" class="btn btn-primary">
-                                <i class="bi bi-file-earmark-text me-1"></i> Ver Sílabo Completo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
-        </div>
-    </section>
-
-    <!-- Sección de planes de clase -->
-    <section id="planes" class="py-5">
-        <div class="container">
-            <h2 class="section-title">Planes de Clase</h2>
-            <p class="lead mb-4">Planes detallados para cada sesión de clase organizados por parcial</p>
-            
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Undécimo - Programación</h5>
-                            <h6 class="card-subtitle mb-3 text-muted">Primer Parcial</h6>
-                            <p class="card-text">
-                                Planes detallados para cada clase del primer parcial de Programación. 
-                                Cada plan incluye objetivos, actividades, recursos y evaluación.
-                            </p>
-                            <div class="mb-3">
-                                <h6>Presentación de Clase:</h6>
-                                <a href="https://informatica0101.github.io/IMA-Informatica/II_BTP_A/Programacion/introduccion_programacion.html" target="_blank" class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-easel me-1"></i> Ver Presentación
-                                </a>
-                            </div>
-                            <div class="mt-4">
-                                <a href="Portafolio/Planes/Planes_Programacion_parcial_1.html" class="btn btn-primary">
-                                    <i class="bi bi-calendar-week me-1"></i> Ver Planes de Clase
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Duodécimo - Diseño Web I</h5>
-                            <h6 class="card-subtitle mb-3 text-muted">Primer Parcial</h6>
-                            <p class="card-text">
-                                Planes detallados para cada clase del primer parcial de Diseño Web I. 
-                                Enfoque en fundamentos de HTML, CSS y JavaScript.
-                            </p>
-                            <div class="mb-3">
-                                <h6>Presentación de Clase:</h6>
-                                <a href="https://informatica0101.github.io/IMA-Informatica/III_BTP_A/introduccion_diseno_web.html" target="_blank" class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-easel me-1"></i> Ver Presentación
-                                </a>
-                            </div>
-                            <div class="mt-4">
-                                <!-- NOTA: El enlace proporcionado parece ser incorrecto (mismo que el sílabo) -->
-                                <!-- Se deja placeholder para el plan de clases correcto -->
-                                <a href="Portafolio/Silabos/SIlabo_Duodecimo_DW.html" class="btn btn-primary">
-                                    <i class="bi bi-calendar-week me-1"></i> Ver Planes de Clase
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Comentario para futuros planes de clase -->
-            <!-- 
-            Para agregar nuevos planes de clase, insertar aquí nuevas tarjetas con la estructura:
-            <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">[ASIGNATURA]</h5>
-                        <h6 class="card-subtitle mb-3 text-muted">[PARCIAL]</h6>
-                        <p class="card-text">[DESCRIPCIÓN]</p>
-                        <div class="mb-3">
-                            <h6>Presentación de Clase:</h6>
-                            <a href="[ENLACE A PRESENTACIÓN]" target="_blank" class="btn btn-sm btn-outline-primary">
-                                <i class="bi bi-easel me-1"></i> Ver Presentación
-                            </a>
-                        </div>
-                        <div class="mt-4">
-                            <a href="[ENLACE A PLANES]" class="btn btn-primary">
-                                <i class="bi bi-calendar-week me-1"></i> Ver Planes de Clase
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
-            
-            <div class="alert alert-info mt-4">
-                <i class="bi bi-info-circle me-2"></i>
-                <strong>Nota:</strong> Los planes de clase, presentaciones y contenido de clase se irán agregando a medida que se desarrolla el parcial. 
-                Cada plan incluirá enlaces a las presentaciones y recursos correspondientes.
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección de evidencias -->
-    <section id="evidencias" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title">Evidencias de Trabajos Estudiantiles</h2>
-            <p class="lead mb-4">Muestra del trabajo realizado por los estudiantes organizado por asignatura</p>
-            
-            <!-- Selector de asignatura -->
-            <div class="row mb-4">
-                <div class="col-md-8 offset-md-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Filtrar Evidencias por Asignatura</h5>
-                            <div class="btn-group d-flex flex-wrap" role="group">
-                                <button type="button" class="btn btn-outline-primary active" data-filter="all">Todas</button>
-                                <button type="button" class="btn btn-outline-primary" data-filter="programacion">Programación</button>
-                                <button type="button" class="btn btn-outline-primary" data-filter="web">Diseño Web</button>
-                                <button type="button" class="btn btn-outline-primary" data-filter="otros">Otras Asignaturas</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Carrusel de evidencias -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title mb-3" id="evidence-title">Evidencias de Trabajos Estudiantiles</h5>
-                    
-                    <div id="evidenceCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <!-- Los indicadores se generarán dinámicamente con JavaScript -->
-                        </div>
-                        <div class="carousel-inner" id="carousel-inner">
-                            <!-- Las imágenes del carrusel se cargarán dinámicamente con JavaScript -->
-                            <!-- Esta es la estructura para cada elemento del carrusel:
-                            <div class="carousel-item active" data-filter="programacion">
-                                <img src="#" class="d-block w-100" alt="Evidencia de trabajo estudiantil">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Título de la evidencia</h5>
-                                    <p>Descripción de la evidencia y la tarea correspondiente.</p>
-                                </div>
-                            </div>
-                            -->
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#evidenceCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Anterior</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#evidenceCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Siguiente</span>
-                        </button>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <h6>Enlace a evidencias desde planes de clase:</h6>
-                        <p>Cada plan de clase incluirá enlaces a las evidencias correspondientes a las tareas asignadas.</p>
-                        
-                        <!-- Ejemplo de enlace a evidencia específica -->
-                        <div class="alert alert-light border">
-                            <h6 class="alert-heading">Ejemplo de integración:</h6>
-                            <p>En el plan de clase para la sesión #3 de Programación, se incluye un enlace a las evidencias de la tarea "Primer programa en JavaScript".</p>
-                            <a href="#" class="btn btn-sm btn-outline-secondary">Ver plan de clase relacionado</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Comentario para futuras evidencias -->
-            <!-- 
-            Para agregar nuevas evidencias al carrusel, agregar elementos en el array 'evidences' 
-            en la sección de JavaScript al final del documento.
-            Cada evidencia debe tener: id, title, description, filter, imageUrl (placeholder)
-            -->
-        </div>
-    </section>
-
-    <!-- Sección de contacto -->
-    <section id="contacto" class="py-5">
-        <div class="container">
-            <h2 class="section-title">Contacto</h2>
-            
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Información de Contacto</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-3">
-                                    <i class="bi bi-telephone me-2"></i>
-                                    <strong>Teléfono:</strong> 88422786
-                                </li>
-                                <li class="mb-3">
-                                    <i class="bi bi-envelope me-2"></i>
-                                    <strong>Email:</strong> azgheall@gmail.com
-                                </li>
-                                <li class="mb-3">
-                                    <i class="bi bi-geo-alt me-2"></i>
-                                    <strong>Dirección:</strong> San Pedro Sula, Honduras
-                                </li>
-                                <li class="mb-3">
-                                    <i class="bi bi-building me-2"></i>
-                                    <strong>Institución Actual:</strong> Instituto María Auxiliadora (ISEMED)
-                                </li>
-                            </ul>
-                            
-                            <h6 class="mt-4">Referencias Profesionales</h6>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <div class="card border-light">
-                                        <div class="card-body p-3">
-                                            <h6 class="card-title">Jorge Portillo</h6>
-                                            <p class="card-text small mb-1">Teléfono: 95328538</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card border-light">
-                                        <div class="card-body p-3">
-                                            <h6 class="card-title">Jorge Fajardo</h6>
-                                            <p class="card-text small mb-1">Teléfono: 31544282</p>
-                                            <p class="card-text small">Email: jfajardo34@hotmail.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Formación Académica</h5>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <h6>Ingeniería Eléctrica Industrial</h6>
-                                    <p class="small text-muted mb-1">UNAH - Actualmente</p>
-                                    <p class="small">20 clases cursadas</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <h6>Bachiller en Mercadotecnia, Ciencias y Letras</h6>
-                                    <p class="small text-muted mb-1">Oficial Nocturno Cabañas - 2013</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <h6>Técnico en Computación</h6>
-                                    <p class="small text-muted mb-1">CCT Honduras - Corea - 2008</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <h6>Técnico en Electrónica</h6>
-                                    <p class="small text-muted mb-1">CCT Honduras - Corea - 2007</p>
                                 </div>
                             </div>
                             
-                            <h6 class="mt-4">Certificaciones Recientes</h6>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item px-0">JavaScript - Fundamentos y Programación (UBITS, 2024)</li>
-                                <li class="list-group-item px-0">Desarrollo Web con HTML, CSS y JavaScript (UBITS, 2024)</li>
-                                <li class="list-group-item px-0">Análisis Estadístico con Excel (UBITS, 2024)</li>
-                            </ul>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-journal-check me-2"></i>Logros Destacados</h5>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item px-0">Diseño de manual de capacitación técnica para instaladores de GPS</li>
+                                            <li class="list-group-item px-0">Reconocimiento como Empleado Estrella 2022 en Inversiones La Paz</li>
+                                            <li class="list-group-item px-0">Altas evaluaciones recibidas como docente</li>
+                                            <li class="list-group-item px-0">Creación de material didáctico para clases de informática</li>
+                                            <li class="list-group-item px-0">Implementación de proyectos tecnológicos en el aula</li>
+                                            <li class="list-group-item px-0">Desarrollo de plataformas web educativas</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="bi bi-person-vcard me-2"></i>Datos Personales</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><strong>DNI:</strong> 0511198901197</li>
+                                    <li class="mb-2"><strong>Título Universitario:</strong> Pasante de Ingeniería Eléctrica Industrial</li>
+                                    <li class="mb-2"><strong>Años de Servicio como Tecnico GPS:</strong> 8 Años</li>
+                                    <li class="mb-2"><strong>Años de Servicio como Docente:</strong> 2 Años</li>
+                                    <li class="mb-2"><strong>Teléfono:</strong> 88422786</li>
+                                    <li class="mb-2"><strong>Email:</strong> azgheall@gmail.com</li>
+                                    <li class="mb-2"><strong>Estado Civil:</strong> Casado</li>
+                                    <li class="mb-2"><strong>Residencia:</strong> San Pedro Sula, Honduras</li>
+                                </ul>
+                                
+                                <h5 class="card-title mt-4"><i class="bi bi-mortarboard me-2"></i>Formación Académica</h5>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <h6>Ingeniería Eléctrica Industrial</h6>
+                                        <p class="small text-muted mb-1">UNAH - Actualmente</p>
+                                        <p class="small">20 clases cursadas</p>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <h6>Bachiller en Mercadotecnia, Ciencias y Letras</h6>
+                                        <p class="small text-muted mb-1">Oficial Nocturno Cabañas - 2013</p>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <h6>Técnico en Computación</h6>
+                                        <p class="small text-muted mb-1">CCT Honduras - Corea - 2008</p>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <h6>Técnico en Electrónica</h6>
+                                        <p class="small text-muted mb-1">CCT Honduras - Corea - 2007</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="bi bi-tools me-2"></i>Habilidades Técnicas</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6 class="small">Informática y Programación</h6>
+                                        <span class="badge skill-badge d-block mb-1">JavaScript</span>
+                                        <span class="badge skill-badge d-block mb-1">HTML/CSS</span>
+                                        <span class="badge skill-badge d-block mb-1">Desarrollo Web</span>
+                                        <span class="badge skill-badge d-block mb-1">Mantenimiento de Computadoras</span>
+                                        <span class="badge skill-badge d-block mb-1">Redes</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="small">Electrónica</h6>
+                                        <span class="badge skill-badge d-block mb-1">Instalación de GPS</span>
+                                        <span class="badge skill-badge d-block mb-1">Circuitos Electrónicos</span>
+                                        <span class="badge skill-badge d-block mb-1">Sistemas Eléctricos</span>
+                                        <span class="badge skill-badge d-block mb-1">Reparación de Equipos</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="small">Habilidades Docentes</h6>
+                                        <span class="badge skill-badge d-block mb-1">Diseño Curricular</span>
+                                        <span class="badge skill-badge d-block mb-1">Evaluación Educativa</span>
+                                        <span class="badge skill-badge d-block mb-1">Tecnología Educativa</span>
+                                        <span class="badge skill-badge d-block mb-1">Gestión del Aula</span>
+                                        <span class="badge skill-badge d-block mb-1">Metodologías Activas</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Sección de proyectos web -->
+        <section id="proyectos" class="py-4 bg-light">
+            <div class="container">
+                <h2 class="section-title">Proyectos Web Desarrollados</h2>
+                <p class="lead mb-4">Plataformas y recursos desarrollados en mis roles profesionales</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card project-card h-100">
+                            <div class="card-body">
+                                <img src="imagenes/icon-v3-512x512.png" alt="Logo GPSpedia" class="project-logo">
+                                <h5 class="card-title">GPSpedia</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">Plataforma técnica para instaladores de GPS</h6>
+                                <p class="card-text">
+                                    Sitio web educativo desarrollado como técnico instalador de GPS en TRACKLINK. 
+                                    Contiene tutoriales, consejos y herramientas para facilitar la comprensión y aplicación de técnicas de instalación de GPS vehiculares.
+                                </p>
+                                <p class="card-text">
+                                    Este proyecto incluye el manual de capacitación técnica que diseñé para nuevos instaladores, con recursos visuales y explicaciones detalladas.
+                                </p>
+                                <div class="mt-4">
+                                    <a href="https://infogpstech.github.io/GPSpedia/index.html" target="_blank" class="btn btn-primary">
+                                        <i class="bi bi-globe me-1"></i> Visitar GPSpedia
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card project-card h-100">
+                            <div class="card-body">
+                                <img src="imagenes/IMA-Logo.png" alt="Logo InformaticApp" class="project-logo">
+                                <h5 class="card-title">InformaticApp</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">Plataforma educativa para estudiantes de informática</h6>
+                                <p class="card-text">
+                                    Plataforma web desarrollada como docente del área de informática en el Instituto María Auxiliadora (ISEMED). 
+                                    Contiene recursos educativos, presentaciones, ejercicios y materiales para las asignaturas de programación, diseño web y otras áreas técnicas.
+                                </p>
+                                <p class="card-text">
+                                    Este proyecto sirve como repositorio centralizado de recursos para mis estudiantes, facilitando el acceso a materiales de estudio y tareas.
+                                </p>
+                                <div class="mt-4">
+                                    <a href="https://informatica0101.github.io/IMA-Informatica/index.html" target="_blank" class="btn btn-primary">
+                                        <i class="bi bi-globe me-1"></i> Visitar InformaticApp
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de sílabos -->
+        <section id="silabos" class="py-4">
+            <div class="container">
+                <h2 class="section-title">Sílabos de Asignaturas</h2>
+                <p class="lead mb-4">Documentos curriculares para las asignaturas a mi cargo</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card subject-card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Undécimo - Informática Sección A</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">Programación - Primer Parcial</h6>
+                                <p class="card-text">
+                                    Sílabo para la asignatura de Programación correspondiente al primer parcial del año lectivo. 
+                                    Incluye objetivos, contenidos, metodología y sistema de evaluación.
+                                </p>
+                                <div class="mt-4">
+                                    <a href="Portafolio/Silabos/Silabo_Undecimo_Programacion_parcial_1.html" class="btn btn-primary">
+                                        <i class="bi bi-file-earmark-text me-1"></i> Ver Sílabo Completo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card subject-card web h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Duodécimo - Informática Sección A</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">Diseño Web I - Primer Parcial</h6>
+                                <p class="card-text">
+                                    Sílabo para la asignatura de Diseño Web I correspondiente al primer parcial del año lectivo. 
+                                    Incluye fundamentos de HTML, CSS y principios de diseño web responsivo.
+                                </p>
+                                <div class="mt-4">
+                                    <a href="Portafolio/Silabos/SIlabo_Duodecimo_DW.html" class="btn btn-primary">
+                                        <i class="bi bi-file-earmark-text me-1"></i> Ver Sílabo Completo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de planes de clase -->
+        <section id="planes" class="py-4 bg-light">
+            <div class="container">
+                <h2 class="section-title">Planes de Clase</h2>
+                <p class="lead mb-4">Planes detallados para cada sesión de clase organizados por parcial</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Undécimo - Programación</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">Primer Parcial</h6>
+                                <p class="card-text">
+                                    Planes detallados para cada clase del primer parcial de Programación. 
+                                    Cada plan incluye objetivos, actividades, recursos y evaluación.
+                                </p>
+                                <div class="mb-3">
+                                    <h6>Presentación de Clase:</h6>
+                                    <a href="https://informatica0101.github.io/IMA-Informatica/II_BTP_A/Programacion/introduccion_programacion.html" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-easel me-1"></i> Ver Presentación
+                                    </a>
+                                </div>
+                                <div class="mt-4">
+                                    <a href="Portafolio/Planes/Planes_Programacion_parcial_1.html" class="btn btn-primary">
+                                        <i class="bi bi-calendar-week me-1"></i> Ver Planes de Clase
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Duodécimo - Diseño Web I</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">Primer Parcial</h6>
+                                <p class="card-text">
+                                    Planes detallados para cada clase del primer parcial de Diseño Web I. 
+                                    Enfoque en fundamentos de HTML, CSS y JavaScript.
+                                </p>
+                                <div class="mb-3">
+                                    <h6>Presentación de Clase:</h6>
+                                    <a href="https://informatica0101.github.io/IMA-Informatica/III_BTP_A/introduccion_diseno_web.html" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-easel me-1"></i> Ver Presentación
+                                    </a>
+                                </div>
+                                <div class="mt-4">
+                                    <!-- ENLACE CORREGIDO -->
+                                    <a href="Portafolio/Planes/Planes_DW_parcial_1.html" class="btn btn-primary">
+                                        <i class="bi bi-calendar-week me-1"></i> Ver Planes de Clase
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-4">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <strong>Nota:</strong> Los planes de clase, presentaciones y contenido de clase se irán agregando a medida que se desarrolla el parcial. 
+                    Cada plan incluirá enlaces a las presentaciones y recursos correspondientes.
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de evidencias -->
+        <section id="evidencias" class="py-4">
+            <div class="container">
+                <h2 class="section-title">Evidencias de Trabajos Estudiantiles</h2>
+                <p class="lead mb-4">Muestra del trabajo realizado por los estudiantes organizado por asignatura</p>
+                
+                <!-- Selector de asignatura -->
+                <div class="row mb-4">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Filtrar Evidencias por Asignatura</h5>
+                                <div class="btn-group d-flex flex-wrap" role="group">
+                                    <button type="button" class="btn btn-outline-primary active" data-filter="all">Todas</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="programacion">Programación</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="web">Diseño Web</button>
+                                    <button type="button" class="btn btn-outline-primary" data-filter="otros">Otras Asignaturas</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carrusel de evidencias -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3" id="evidence-title">Evidencias de Trabajos Estudiantiles</h5>
+                        
+                        <div id="evidenceCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <!-- Los indicadores se generarán dinámicamente con JavaScript -->
+                            </div>
+                            <div class="carousel-inner" id="carousel-inner">
+                                <!-- Las imágenes del carrusel se cargarán dinámicamente con JavaScript -->
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#evidenceCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Anterior</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#evidenceCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Siguiente</span>
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6>Enlace a evidencias desde planes de clase:</h6>
+                            <p>Cada plan de clase incluirá enlaces a las evidencias correspondientes a las tareas asignadas.</p>
+                            
+                            <!-- Ejemplo de enlace a evidencia específica -->
+                            <div class="alert alert-light border">
+                                <h6 class="alert-heading">Ejemplo de integración:</h6>
+                                <p>En el plan de clase para la sesión #3 de Programación, se incluye un enlace a las evidencias de la tarea "Primer programa en JavaScript".</p>
+                                <a href="#" class="btn btn-sm btn-outline-secondary">Ver plan de clase relacionado</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de contacto -->
+        <section id="contacto" class="py-4 bg-light">
+            <div class="container">
+                <h2 class="section-title">Contacto</h2>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Información de Contacto</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-3">
+                                        <i class="bi bi-telephone me-2"></i>
+                                        <strong>Teléfono:</strong> 88422786
+                                    </li>
+                                    <li class="mb-3">
+                                        <i class="bi bi-envelope me-2"></i>
+                                        <strong>Email:</strong> azgheall@gmail.com
+                                    </li>
+                                    <li class="mb-3">
+                                        <i class="bi bi-geo-alt me-2"></i>
+                                        <strong>Dirección:</strong> San Pedro Sula, Honduras
+                                    </li>
+                                    <li class="mb-3">
+                                        <i class="bi bi-building me-2"></i>
+                                        <strong>Institución Actual:</strong> Instituto María Auxiliadora (ISEMED)
+                                    </li>
+                                    <li class="mb-3">
+                                        <i class="bi bi-calendar-check me-2"></i>
+                                        <strong>Tiempo en institución actual:</strong> 4 meses
+                                    </li>
+                                    <li class="mb-3">
+                                        <i class="bi bi-award me-2"></i>
+                                        <strong>Total experiencia docente:</strong> 7 meses
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Referencias Profesionales</h5>
+                                <div class="row mt-2">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card border-light">
+                                            <div class="card-body">
+                                                <h6 class="card-title">Jorge Portillo</h6>
+                                                <p class="card-text small mb-1">Contacto profesional</p>
+                                                <p class="card-text small mb-1"><strong>Teléfono:</strong> 95328538</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card border-light">
+                                            <div class="card-body">
+                                                <h6 class="card-title">Jorge Fajardo</h6>
+                                                <p class="card-text small mb-1">Contacto profesional</p>
+                                                <p class="card-text small mb-1"><strong>Teléfono:</strong> 31544282</p>
+                                                <p class="card-text small mb-0"><strong>Email:</strong> jfajardo34@hotmail.com</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h6 class="mt-4">Certificaciones Recientes</h6>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-0">JavaScript - Fundamentos y Programación (UBITS, 2024)</li>
+                                    <li class="list-group-item px-0">Desarrollo Web con HTML, CSS y JavaScript (UBITS, 2024)</li>
+                                    <li class="list-group-item px-0">Análisis Estadístico con Excel (UBITS, 2024)</li>
+                                    <li class="list-group-item px-0">Manipulación de arreglos y objetos en JavaScript (UBITS, 2024)</li>
+                                    <li class="list-group-item px-0">Control de flujo en JavaScript (UBITS, 2024)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer class="py-4">
