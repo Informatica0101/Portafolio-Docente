@@ -4,171 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SILABO I PARCIAL 2026 - Programación I</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #ffffff;
-            color: #000000;
-            line-height: 1.4;
-            padding: 20px;
-            font-size: 12px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #000;
-        }
-        
-        h1 {
-            color: #000;
-            margin-bottom: 5px;
-            font-size: 18px;
-            text-transform: uppercase;
-        }
-        
-        .subtitle {
-            color: #000;
-            font-size: 14px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        .course-info {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-            font-size: 12px;
-        }
-        
-        .info-item {
-            margin: 3px 0;
-        }
-        
-        .info-item strong {
-            font-weight: bold;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 11px;
-            table-layout: fixed;
-        }
-        
-        th, td {
-            border: 1px solid #000;
-            padding: 5px;
-            vertical-align: top;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #f0f0f0;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        .col-tema {
-            width: 25%;
-        }
-        
-        .col-asignacion {
-            width: 25%;
-        }
-        
-        .col-criterios {
-            width: 20%;
-        }
-        
-        .col-fecha {
-            width: 15%;
-        }
-        
-        .col-puntaje {
-            width: 15%;
-        }
-        
-        .sub-columns {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-        }
-        
-        .sub-col {
-            width: 48%;
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .criterios-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .criterios-list li {
-            margin-bottom: 3px;
-        }
-        
-        .rowspan-cell {
-            vertical-align: middle;
-        }
-        
-        .proyecto-row {
-            font-weight: bold;
-            background-color: #f9f9f9;
-        }
-        
-        .footer-note {
-            margin-top: 20px;
-            font-size: 10px;
-            text-align: center;
-            color: #666;
-        }
-        
-        @media print {
-            body {
-                padding: 0;
-                margin: 0;
-                background-color: white;
-            }
-            
-            .container {
-                box-shadow: none;
-                padding: 10px;
-            }
-            
-            table {
-                page-break-inside: auto;
-            }
-            
-            tr {
-                page-break-inside: avoid;
-                page-break-after: auto;
-            }
-            
-            .no-print {
-                display: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../../common.css">
+    <link rel="stylesheet" href="../../syllabus.css">
 </head>
 <body>
     <div class="container">
@@ -206,7 +43,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Introducción a la Programación</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Introducción a la Programación', 0)">Introducción a la Programación</a></td>
                     <td>Ejercicios de algoritmos con ejemplos cotidianos.</td>
                     <td class="rowspan-cell" rowspan="8">
                         <ul class="criterios-list">
@@ -227,7 +64,7 @@
                     <td>Tarea en casa 5%</td>
                 </tr>
                 <tr>
-                    <td>Clasificación y etapas de algoritmos</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Clasificación y etapas de algoritmos', 1)">Clasificación y etapas de algoritmos</a></td>
                     <td>Cuadro conceptual sobre algoritmos y describir etapas de programación.</td>
                     <td>
                         <div class="sub-columns">
@@ -238,7 +75,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Estrategias de solución de problemas.</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Estrategias de solución de problemas.', 2)">Estrategias de solución de problemas.</a></td>
                     <td>Resolver problema usando división en subproblemas.</td>
                     <td>
                         <div class="sub-columns">
@@ -249,7 +86,7 @@
                     <td>Tarea en clase 5%</td>
                 </tr>
                 <tr>
-                    <td>Análisis y diseño de algoritmos</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Análisis y diseño de algoritmos', 3)">Análisis y diseño de algoritmos</a></td>
                     <td>Ejercicios de algoritmo en lenguaje natural</td>
                     <td>
                         <div class="sub-columns">
@@ -260,7 +97,7 @@
                     <td>Tarea de casa 5%</td>
                 </tr>
                 <tr>
-                    <td>Programación y representación</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Programación y representación', 4)">Programación y representación</a></td>
                     <td>Ejercicios de Conversión de algoritmo a instrucciones paso a paso.</td>
                     <td>
                         <div class="sub-columns">
@@ -271,7 +108,7 @@
                     <td>Trabajo en clase 5%</td>
                 </tr>
                 <tr>
-                    <td>Pseudocódigo y ordenación simbólica</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Pseudocódigo y ordenación simbólica', 5)">Pseudocódigo y ordenación simbólica</a></td>
                     <td>Escribir algoritmo en pseudocódigo con simbología básica.</td>
                     <td>
                         <div class="sub-columns">
@@ -282,7 +119,7 @@
                     <td>Trabajo en clase 5%</td>
                 </tr>
                 <tr>
-                    <td>Diagramas de flujo</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Diagramas de flujo', 6)">Diagramas de flujo</a></td>
                     <td>Crear diagrama de flujo para proceso cotidiano (ej: hacer café).</td>
                     <td>
                         <div class="sub-columns">
@@ -293,7 +130,7 @@
                     <td>Trabajo en clase 5%</td>
                 </tr>
                 <tr>
-                    <td>Pseudocódigo en Pesent</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Pseudocódigo en Pesent', 7)">Pseudocódigo en Pesent</a></td>
                     <td>Ejercicios de Pseudocódigo en Pesent y en Pseudocode app</td>
                     <td>
                         <div class="sub-columns">
@@ -304,7 +141,7 @@
                     <td>Tarea en clase 5%</td>
                 </tr>
                 <tr>
-                    <td>Revisión y guía de estudio</td>
+                    <td><a href="#" class="topic-link" onclick="loadClassPlan('programacion', 'Revisión y guía de estudio', 8)">Revisión y guía de estudio</a></td>
                     <td>Revisión de ejercicios y entrega de guía de estudio.</td>
                     <td></td>
                     <td>
@@ -322,9 +159,28 @@
             </tbody>
         </table>
         
+        <div class="instruction-note">
+            <p>Para ver los planes de estudio, haga clic en el nombre del tema.</p>
+        </div>
+        
         <div class="footer-note">
             <p>SILABO I PARCIAL 2026 - Programación I</p>
         </div>
     </div>
+    
+    <!-- Modal para mostrar los detalles del plan -->
+    <div class="modal" id="planModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Detalles del Plan de Clase</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- El contenido del plan se cargará dinámicamente aquí -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="../../modal.js"></script>
 </body>
 </html>
