@@ -45,7 +45,7 @@ function getSilabos(ss) {
   const asignaturasData = getSheetData(asignaturasSheet);
 
   return silabosData.map(silabo => {
-    const asignatura = asignaturasData.find(a => a.asignatura_id === silabo.asignatura_id);
+    const asignatura = asignaturasData.find(a => String(a.asignatura_id) === String(silabo.asignatura_id));
     return {
       ...silabo,
       asignatura: asignatura || {}
@@ -54,20 +54,21 @@ function getSilabos(ss) {
 }
 
 function getSyllabusContent(ss, silaboId) {
-  const silabo = getSilabos(ss).find(s => s.silabo_id === silaboId);
-  if (!silabo) return { error: 'Silabo not found' };
+  const silabos = getSilabos(ss);
+  const silabo = silabos.find(s => String(s.silabo_id) === String(silaboId));
+  if (!silabo) return { error: 'Silabo not found: ' + silaboId };
 
-  const unidades = getSheetData(ss.getSheetByName('Unidades')).filter(u => u.silabo_id === silaboId);
-  const clases = getSheetData(ss.getSheetByName('Clases_Plan'));
-  const asignaciones = getSheetData(ss.getSheetByName('Asignaciones'));
-  const criterios = getSheetData(ss.getSheetByName('Criterios_Evaluacion'));
+  const unidades = getSheetData(ss.getSheetByName('Unidades')).filter(u => String(u.silabo_id) === String(silaboId));
+  const clasesAll = getSheetData(ss.getSheetByName('Clases_Plan'));
+  const asignacionesAll = getSheetData(ss.getSheetByName('Asignaciones'));
+  const criteriosAll = getSheetData(ss.getSheetByName('Criterios_Evaluacion'));
 
   const resultUnidades = unidades.map(unidad => {
-    const unidadClases = clases.filter(c => c.unidad_id === unidad.unidad_id).map(clase => {
-      const claseAsignacion = asignaciones.find(a => a.clase_id === clase.clase_id);
+    const unidadClases = clasesAll.filter(c => String(c.unidad_id) === String(unidad.unidad_id)).map(clase => {
+      const claseAsignacion = asignacionesAll.find(a => String(a.clase_id) === String(clase.clase_id));
       let asignacionConCriterios = null;
       if (claseAsignacion) {
-        const asigCriterios = criterios.filter(cr => cr.asignacion_id === claseAsignacion.asignacion_id);
+        const asigCriterios = criteriosAll.filter(cr => String(cr.asignacion_id) === String(claseAsignacion.asignacion_id));
         asignacionConCriterios = {
           ...claseAsignacion,
           criterios: asigCriterios
@@ -91,34 +92,31 @@ function getSyllabusContent(ss, silaboId) {
 }
 
 function getPlanDetails(ss, claseId) {
-  const clases = getSheetData(ss.getSheetByName('Clases_Plan'));
-  const clase = clases.find(c => c.clase_id === claseId);
+  const clasesAll = getSheetData(ss.getSheetByName('Clases_Plan'));
+  const clase = clasesAll.find(c => String(c.clase_id) === String(claseId));
 
-  if (!clase) return { error: 'Clase not found' };
+  if (!clase) return { error: 'Clase not found: ' + claseId };
 
-  const recursos = getSheetData(ss.getSheetByName('Recursos')).filter(r => r.clase_id === claseId);
-  const asignaciones = getSheetData(ss.getSheetByName('Asignaciones')).filter(a => a.clase_id === claseId);
+  const recursos = getSheetData(ss.getSheetByName('Recursos')).filter(r => String(r.clase_id) === String(claseId));
+  const asignaciones = getSheetData(ss.getSheetByName('Asignaciones')).filter(a => String(a.clase_id) === String(claseId));
   const criteriosAll = getSheetData(ss.getSheetByName('Criterios_Evaluacion'));
 
   const asignacionesConCriterios = asignaciones.map(asig => {
-    const criterios = criteriosAll.filter(cr => cr.asignacion_id === asig.asignacion_id);
+    const criterios = criteriosAll.filter(cr => String(cr.asignacion_id) === String(asig.asignacion_id));
     return {
       ...asig,
       criterios: criterios
     };
   });
 
-  const unidades = getSheetData(ss.getSheetByName('Unidades'));
-  const unidad = unidades.find(u => u.unidad_id === clase.unidad_id);
+  const unidadesAll = getSheetData(ss.getSheetByName('Unidades'));
+  const unidad = unidadesAll.find(u => String(u.unidad_id) === String(clase.unidad_id));
 
-  const asignaturasSheet = ss.getSheetByName('Asignaturas');
-  const asignaturasData = getSheetData(asignaturasSheet);
+  const silabosAll = getSheetData(ss.getSheetByName('Silabos'));
+  const silabo = unidad ? silabosAll.find(s => String(s.silabo_id) === String(unidad.silabo_id)) : null;
 
-  const silabosSheet = ss.getSheetByName('Silabos');
-  const silabosData = getSheetData(silabosSheet);
-
-  const silabo = silabosData.find(s => s.silabo_id === (unidad ? unidad.silabo_id : ''));
-  const asignatura = silabo ? asignaturasData.find(a => a.asignatura_id === silabo.asignatura_id) : null;
+  const asignaturasAll = getSheetData(ss.getSheetByName('Asignaturas'));
+  const asignatura = silabo ? asignaturasAll.find(a => String(a.asignatura_id) === String(silabo.asignatura_id)) : null;
 
   return {
     clase: clase,
@@ -141,8 +139,20 @@ function getSheetData(sheet) {
   return rows.map(row => {
     const obj = {};
     headers.forEach((header, index) => {
-      obj[header] = row[index];
+      let value = row[index];
+      if (value instanceof Date) {
+        value = formatDate(value);
+      }
+      obj[header] = value;
     });
     return obj;
   });
+}
+
+function formatDate(date) {
+  if (!(date instanceof Date)) return date;
+  const day = ("0" + date.getDate()).slice(-2);
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const year = date.getFullYear();
+  return day + "/" + month + "/" + year;
 }
