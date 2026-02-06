@@ -6,7 +6,13 @@ function doGet(e) {
   let result;
 
   try {
-    if (action === 'getSilabos') {
+    if (!action) {
+      result = {
+        status: "success",
+        message: "Microservicio de Sílabos activo",
+        available_actions: ["getSilabos", "getSyllabusContent", "getPlanDetails"]
+      };
+    } else if (action === 'getSilabos') {
       result = getSilabos(ss);
     } else if (action === 'getSyllabusContent') {
       const silaboId = e.parameter.silabo_id;
@@ -15,7 +21,11 @@ function doGet(e) {
       const claseId = e.parameter.clase_id;
       result = getPlanDetails(ss, claseId);
     } else {
-      result = { error: 'Invalid action' };
+      result = {
+        error: 'Invalid action',
+        received_action: action,
+        available_actions: ["getSilabos", "getSyllabusContent", "getPlanDetails"]
+      };
     }
   } catch (error) {
     result = { error: error.toString() };
