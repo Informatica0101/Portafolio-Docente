@@ -18,7 +18,7 @@ async function fetchFromGAS(action, params = {}) {
     }
 }
 
-// Datos de evidencias para el carrusel (se mantienen estáticos según requerimiento de no modificar lo que ya existe)
+// Datos de evidencias para el carrusel
 const evidences = [
     {
         id: 1,
@@ -74,7 +74,6 @@ async function renderSilabos() {
         const card = document.createElement('div');
         card.className = 'col-md-6';
         const isWeb = silabo.asignatura.nombre_asignatura.toLowerCase().includes('web');
-        const fileName = silabo.silabo_id === 'sil_0001' ? 'Silabo_Undecimo_Programacion_parcial_1.html' : 'SIlabo_Duodecimo_DW.html';
 
         card.innerHTML = `
             <div class="card subject-card h-100 ${isWeb ? 'web' : ''}">
@@ -85,7 +84,7 @@ async function renderSilabos() {
                         ${silabo.observaciones || 'Sílabo para la asignatura de ' + silabo.asignatura.nombre_asignatura + '.'}
                     </p>
                     <div class="mt-4">
-                        <a href="Portafolio/Silabos/${fileName}" class="btn btn-primary">
+                        <a href="Portafolio/Silabos/Silabo_Unified.html?id=${silabo.silabo_id}" class="btn btn-primary">
                             <i class="bi bi-file-earmark-text me-1"></i> Ver Sílabo Completo
                         </a>
                     </div>
@@ -106,21 +105,25 @@ async function renderSyllabusTable(silaboId) {
 
     const { silabo, unidades } = data;
 
-    // Actualizar encabezado
-    document.querySelector('h1').textContent = silabo.nombre_silabo.toUpperCase();
-    const courseInfo = document.querySelector('.course-info');
+    // Actualizar encabezado (Soporta IDs específicos o selectores genéricos)
+    const titleElement = document.getElementById('syllabus-title') || document.querySelector('h1');
+    if (titleElement) titleElement.textContent = silabo.nombre_silabo.toUpperCase();
+
+    const courseInfo = document.getElementById('course-info-container') || document.querySelector('.course-info');
     if (courseInfo) {
         courseInfo.innerHTML = `
-            <div class="info-item"><strong>Fecha de inicio:</strong> ${silabo.fecha_inicio}</div>
-            <div class="info-item"><strong>Fecha de cierre:</strong> ${silabo.fecha_cierre}</div>
-            <div class="info-item"><strong>Asignatura:</strong> ${silabo.asignatura.nombre_asignatura}</div>
-            <div class="info-item"><strong>Área:</strong> ${silabo.asignatura.area}</div>
-            <div class="info-item"><strong>Grado:</strong> ${silabo.asignatura.grado} "${silabo.asignatura.seccion}"</div>
-            <div class="info-item"><strong>Docente:</strong> ${silabo.asignatura.docente}</div>
+            <div class="row text-start small">
+                <div class="col-md-6 mb-2"><strong>Fecha de inicio:</strong> ${silabo.fecha_inicio}</div>
+                <div class="col-md-6 mb-2"><strong>Fecha de cierre:</strong> ${silabo.fecha_cierre}</div>
+                <div class="col-md-6 mb-2"><strong>Asignatura:</strong> ${silabo.asignatura.nombre_asignatura}</div>
+                <div class="col-md-6 mb-2"><strong>Área:</strong> ${silabo.asignatura.area}</div>
+                <div class="col-md-6 mb-2"><strong>Grado:</strong> ${silabo.asignatura.grado} "${silabo.asignatura.seccion}"</div>
+                <div class="col-md-6 mb-2"><strong>Docente:</strong> ${silabo.asignatura.docente}</div>
+            </div>
         `;
     }
 
-    const tbody = document.querySelector('tbody');
+    const tbody = document.getElementById('syllabus-body') || document.querySelector('tbody');
     if (!tbody) return;
 
     tbody.innerHTML = '';
@@ -131,7 +134,7 @@ async function renderSyllabusTable(silaboId) {
 
             // Tema
             const tdTema = document.createElement('td');
-            tdTema.innerHTML = `<a href="#" class="topic-link" onclick="loadClassPlan('${clase.clase_id}')">${clase.tema}</a>`;
+            tdTema.innerHTML = `<a href="#" class="topic-link fw-bold text-primary text-decoration-none" onclick="loadClassPlan('${clase.clase_id}')">${clase.tema}</a>`;
             tr.appendChild(tdTema);
 
             // Asignacion
@@ -143,10 +146,10 @@ async function renderSyllabusTable(silaboId) {
             const tdCriterios = document.createElement('td');
             if (clase.asignacion && clase.asignacion.criterios && clase.asignacion.criterios.length > 0) {
                 const ul = document.createElement('ul');
-                ul.className = 'criterios-list';
+                ul.className = 'list-unstyled small mb-0';
                 clase.asignacion.criterios.forEach(cr => {
                     const li = document.createElement('li');
-                    li.textContent = cr.criterio;
+                    li.innerHTML = `<i class="bi bi-check-short"></i> ${cr.criterio}`;
                     ul.appendChild(li);
                 });
                 tdCriterios.appendChild(ul);
@@ -156,15 +159,16 @@ async function renderSyllabusTable(silaboId) {
             // Fecha
             const tdFecha = document.createElement('td');
             tdFecha.innerHTML = `
-                <div class="sub-columns">
-                    <div class="sub-col">${clase.fecha_clase}</div>
-                    <div class="sub-col">${clase.asignacion ? clase.asignacion.fecha_entrega : '-'}</div>
+                <div class="d-flex justify-content-between small">
+                    <div class="flex-fill text-center border-end pe-1">${clase.fecha_clase}</div>
+                    <div class="flex-fill text-center ps-1">${clase.asignacion ? clase.asignacion.fecha_entrega : '-'}</div>
                 </div>
             `;
             tr.appendChild(tdFecha);
 
             // Puntaje
             const tdPuntaje = document.createElement('td');
+            tdPuntaje.className = 'text-center';
             tdPuntaje.textContent = clase.asignacion ? `${clase.asignacion.tipo} ${clase.asignacion.ponderacion}` : '-';
             tr.appendChild(tdPuntaje);
 
@@ -205,7 +209,7 @@ function displayPlanModal(data) {
     etapas.forEach(etapa => {
         etapasHTML += `
             <tr>
-                <td>${etapa.nombre}</td>
+                <td class="fw-bold bg-light">${etapa.nombre}</td>
                 <td>${etapa.estrategia}</td>
                 <td>Recursos Varios</td>
             </tr>
@@ -216,9 +220,9 @@ function displayPlanModal(data) {
     const pres = recursos.find(r => r.tipo_recurso.toLowerCase().includes('presentacion'));
     if (pres) {
         presentationLink = `
-            <div class="plan-detail">
-                <h3>Presentación de Clase</h3>
-                <a href="${pres.descripcion}" target="_blank" class="presentation-link">
+            <div class="alert alert-info mt-3">
+                <h5 class="alert-heading h6"><i class="bi bi-display me-2"></i>Presentación de Clase</h5>
+                <a href="${pres.descripcion}" target="_blank" class="btn btn-outline-info btn-sm">
                     Ver presentación de esta clase
                 </a>
             </div>
@@ -227,12 +231,12 @@ function displayPlanModal(data) {
 
     let asignacionesHTML = '';
     if (asignaciones && asignaciones.length > 0) {
-        asignacionesHTML = '<div class="plan-detail"><h3>Asignaciones</h3>';
+        asignacionesHTML = '<div class="mt-4"><h5><i class="bi bi-pencil-square me-2"></i>Asignaciones</h5>';
         asignaciones.forEach(asig => {
             asignacionesHTML += `
-                <div class="mb-3">
-                    <p><strong>${asig.titulo_asignacion}:</strong> ${asig.descripcion}</p>
-                    <p class="small text-muted">Tipo: ${asig.tipo} | Ponderación: ${asig.ponderacion} | Entrega: ${asig.fecha_entrega}</p>
+                <div class="card mb-2 border-0 bg-light p-3">
+                    <p class="mb-1"><strong>${asig.titulo_asignacion}:</strong> ${asig.descripcion}</p>
+                    <p class="small text-muted mb-0">Tipo: ${asig.tipo} | Ponderación: ${asig.ponderacion} | Entrega: ${asig.fecha_entrega}</p>
                 </div>
             `;
         });
@@ -240,53 +244,59 @@ function displayPlanModal(data) {
     }
 
     modalBody.innerHTML = `
-        <div class="plan-detail">
-            <h3>Información General</h3>
-            <table class="detail-table">
-                <tr><td>Docente</td><td>${asignatura ? asignatura.docente : 'Pablo Antonio Peña Mancia'}</td></tr>
-                <tr><td>Período</td><td>${asignatura ? asignatura.periodo : 'N/A'}</td></tr>
-                <tr><td>Grado</td><td>${asignatura ? asignatura.grado + ' "' + asignatura.seccion + '"' : 'N/A'}</td></tr>
-                <tr><td>Asignatura</td><td>${asignatura ? asignatura.nombre_asignatura : 'N/A'}</td></tr>
-                <tr><td>Fecha</td><td>${clase.fecha_clase}</td></tr>
-            </table>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h5><i class="bi bi-info-circle me-2"></i>Información General</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered mb-0">
+                        <tr><td class="bg-light fw-bold" style="width: 30%;">Docente</td><td>${asignatura ? asignatura.docente : 'Pablo Antonio Peña Mancia'}</td></tr>
+                        <tr><td class="bg-light fw-bold">Período</td><td>${asignatura ? asignatura.periodo : 'N/A'}</td></tr>
+                        <tr><td class="bg-light fw-bold">Grado</td><td>${asignatura ? asignatura.grado + ' "' + asignatura.seccion + '"' : 'N/A'}</td></tr>
+                        <tr><td class="bg-light fw-bold">Asignatura</td><td>${asignatura ? asignatura.nombre_asignatura : 'N/A'}</td></tr>
+                        <tr><td class="bg-light fw-bold">Fecha</td><td>${clase.fecha_clase}</td></tr>
+                    </table>
+                </div>
+            </div>
         </div>
 
-        <div class="plan-detail">
-            <h3>Competencia de la Unidad</h3>
-            <p>${unidad ? unidad.competencia_unidad : 'N/A'}</p>
+        <div class="mb-4">
+            <h5><i class="bi bi-bullseye me-2"></i>Competencia de la Unidad</h5>
+            <div class="p-3 bg-light rounded">${unidad ? unidad.competencia_unidad : 'N/A'}</div>
         </div>
 
-        <div class="plan-detail">
-            <h3>Indicador de logro</h3>
-            <p>${clase.indicador_logro}</p>
+        <div class="mb-4">
+            <h5><i class="bi bi-award me-2"></i>Indicador de logro</h5>
+            <div class="p-3 bg-light rounded">${clase.indicador_logro}</div>
         </div>
 
-        <div class="plan-detail">
-            <h3>Etapas de la Clase</h3>
-            <table class="stages-table">
-                <thead>
-                    <tr>
-                        <th>ETAPAS</th>
-                        <th>ESTRATEGIAS DE ENSEÑANZA APRENDIZAJE</th>
-                        <th>RECURSOS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${etapasHTML}
-                </tbody>
-            </table>
+        <div class="mb-4">
+            <h5><i class="bi bi-layers me-2"></i>Etapas de la Clase</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ETAPAS</th>
+                            <th>ESTRATEGIAS DE ENSEÑANZA APRENDIZAJE</th>
+                            <th>RECURSOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${etapasHTML}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="plan-detail">
-            <h3>Síntesis del Tema</h3>
-            <p>${clase.sintesis_tema || 'N/A'}</p>
+        <div class="mb-4">
+            <h5><i class="bi bi-chat-left-quote me-2"></i>Síntesis del Tema</h5>
+            <div class="p-3 bg-light rounded">${clase.sintesis_tema || 'N/A'}</div>
         </div>
 
         ${asignacionesHTML}
         ${presentationLink}
 
-        <div style="text-align: center; margin-top: 20px;">
-            <button class="btn btn-secondary" id="closeModalBtn">Cerrar</button>
+        <div class="text-center mt-4">
+            <button class="btn btn-secondary px-4" id="closeModalBtn">Cerrar</button>
         </div>
     `;
 
