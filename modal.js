@@ -221,6 +221,9 @@ async function renderSyllabusTable(silaboId) {
             unidad.clases.forEach(clase => {
                 const tr = document.createElement('tr');
 
+            // Ayudante para obtener actividad guiada (manejar espacio extra en la clave del microservicio)
+            const guiada = clase.actividad_guiada || clase['actividad_guiada '] || '';
+
                 // Tema / Contenido
                 const tdTema = document.createElement('td');
                 tdTema.innerHTML = `
@@ -228,7 +231,7 @@ async function renderSyllabusTable(silaboId) {
                         <a href="#" class="topic-link" onclick="loadClassPlan('${clase.clase_id}')">${clase.tema}</a>
                     </div>
                     <div class="small text-muted" style="font-size: 0.85rem; line-height: 1.2;">
-                        ${clase.actividad_guiada || ''}
+                    ${guiada}
                     </div>
                 `;
                 tr.appendChild(tdTema);
@@ -349,9 +352,12 @@ function displayPlanModal(data) {
 
     modalTitle.textContent = `PLAN DE CLASE: ${clase.tema}`;
 
+    // Manejar espacio extra en la clave 'actividad_guiada' proveniente del microservicio
+    const guiada = clase.actividad_guiada || clase['actividad_guiada '] || '';
+
     const etapas = [
         { nombre: 'Pre-saberes', estrategia: clase.pre_saberes, ic: 'bi-lightbulb' },
-        { nombre: 'Actividad Guiada', estrategia: clase.actividad_guiada, ic: 'bi-person-video3' },
+        { nombre: 'Actividad Guiada', estrategia: guiada, ic: 'bi-person-video3' },
         { nombre: 'Actividad Independiente', estrategia: clase.actividad_independiente, ic: 'bi-pencil-fill' }
     ];
 
