@@ -175,7 +175,7 @@ async function renderSyllabusTable(silaboId) {
     tbody.innerHTML = '';
 
     if (unidades.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center p-5">No hay unidades registradas para este sílabo.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center p-5">No hay unidades registradas para este sílabo.</td></tr>';
         return;
     }
 
@@ -183,7 +183,7 @@ async function renderSyllabusTable(silaboId) {
         // Fila de Encabezado de Unidad
         const trUnidad = document.createElement('tr');
         trUnidad.className = 'table-light fw-bold';
-        trUnidad.innerHTML = `<td colspan="5" class="bg-light p-3"><i class="bi bi-bookmark-star-fill text-primary me-2"></i>Unidad: ${unidad.nombre_unidad}</td>`;
+        trUnidad.innerHTML = `<td colspan="6" class="bg-light p-3"><i class="bi bi-bookmark-star-fill text-primary me-2"></i>Unidad: ${unidad.nombre_unidad}</td>`;
         tbody.appendChild(trUnidad);
 
         unidad.clases.forEach(clase => {
@@ -215,20 +215,31 @@ async function renderSyllabusTable(silaboId) {
             }
             tr.appendChild(tdCriterios);
 
-            // Fecha
-            const tdFecha = document.createElement('td');
-            tdFecha.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center small">
-                    <div class="text-center flex-fill border-end pe-1" title="Fecha de Ejecución">${formatDate(clase.fecha_clase)}</div>
-                    <div class="text-center flex-fill ps-1" title="Fecha de Entrega">${clase.asignacion ? formatDate(clase.asignacion.fecha_entrega) : '-'}</div>
-                </div>
-            `;
-            tr.appendChild(tdFecha);
+            // Fecha Ejecución
+            const tdEjecucion = document.createElement('td');
+            tdEjecucion.className = 'text-center small';
+            tdEjecucion.textContent = formatDate(clase.fecha_clase);
+            tr.appendChild(tdEjecucion);
+
+            // Fecha Entrega
+            const tdEntrega = document.createElement('td');
+            tdEntrega.className = 'text-center small';
+            tdEntrega.textContent = (clase.asignacion && clase.asignacion.fecha_entrega) ? formatDate(clase.asignacion.fecha_entrega) : '-';
+            tr.appendChild(tdEntrega);
 
             // Puntaje
             const tdPuntaje = document.createElement('td');
-            tdPuntaje.className = 'text-center fw-bold';
-            tdPuntaje.textContent = clase.asignacion ? `${clase.asignacion.ponderacion}` : '-';
+            tdPuntaje.className = 'text-center fw-bold small';
+            if (clase.asignacion) {
+                const tipo = clase.asignacion.tipo || '';
+                let ponderacion = clase.asignacion.ponderacion ? clase.asignacion.ponderacion.toString() : '';
+                if (ponderacion && !ponderacion.includes('%')) {
+                    ponderacion += '%';
+                }
+                tdPuntaje.textContent = `${tipo} ${ponderacion}`.trim() || '-';
+            } else {
+                tdPuntaje.textContent = '-';
+            }
             tr.appendChild(tdPuntaje);
 
             tbody.appendChild(tr);
