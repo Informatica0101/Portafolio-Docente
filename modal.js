@@ -1,5 +1,5 @@
 // URL del microservicio de Google Apps Script
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyUsYUCXkEOxIpukZnZU_aVjF9Y_GnaGgRcgIlv9rE5r6nTQY7DPVWVX7Xs553GyFo/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwuBwbYLiv81_DIpF2IvE-F7RwEdqDqNrhIhtTRCi18w4PG1OY21pE8PSKlGFsBrx0/exec';
 
 // Función genérica para consumir el microservicio
 async function fetchFromGAS(action, params = {}) {
