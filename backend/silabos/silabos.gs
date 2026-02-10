@@ -133,7 +133,7 @@ function getSheetData(sheet) {
   const data = sheet.getDataRange().getValues();
   if (data.length < 2) return [];
 
-  const headers = data[0];
+  const headers = data[0].map(h => String(h).trim()); // Trim headers to avoid trailing spaces
   const rows = data.slice(1);
 
   return rows.map(row => {

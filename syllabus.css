@@ -71,11 +71,11 @@ table {
 
 th, td {
     padding: 12px 15px;
-    vertical-align: middle;
+    vertical-align: top; /* Align content to the top for better readability with multi-line cells */
     border: 1px solid #dee2e6;
 }
 
-th {
+th, .table thead tr:first-child th {
     background-color: var(--primary-color);
     color: white;
     font-weight: 600;
@@ -91,6 +91,10 @@ tbody tr {
 
 tbody tr:hover {
     background-color: rgba(52, 152, 219, 0.05);
+}
+
+.table-light.fw-bold td {
+    vertical-align: middle;
 }
 
 .topic-link {

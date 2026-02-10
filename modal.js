@@ -1,6 +1,19 @@
 // URL del microservicio de Google Apps Script
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbwuBwbYLiv81_DIpF2IvE-F7RwEdqDqNrhIhtTRCi18w4PG1OY21pE8PSKlGFsBrx0/exec';
 
+// Estado global para evitar peticiones concurrentes
+let isLoading = false;
+
+function showGlobalLoader() {
+    const loader = document.getElementById('global-loader');
+    if (loader) loader.classList.remove('d-none');
+}
+
+function hideGlobalLoader() {
+    const loader = document.getElementById('global-loader');
+    if (loader) loader.classList.add('d-none');
+}
+
 // Función genérica para consumir el microservicio
 async function fetchFromGAS(action, params = {}) {
     const url = new URL(GAS_URL);
@@ -84,167 +97,248 @@ async function renderSilabos() {
     const container = document.getElementById('silabos-container');
     if (!container) return;
 
-    const silabos = await fetchFromGAS('getSilabos');
-    if (silabos.error) {
-        container.innerHTML = `<div class="col-12 alert alert-danger">Error al cargar sílabos: ${silabos.error}</div>`;
-        return;
-    }
+    if (isLoading) return;
+    isLoading = true;
+    showGlobalLoader();
 
-    container.innerHTML = '';
-    silabos.forEach(silabo => {
-        const card = document.createElement('div');
-        card.className = 'col-md-6 mb-4';
-        const isWeb = silabo.asignatura.nombre_asignatura.toLowerCase().includes('web');
+    try {
+        const silabos = await fetchFromGAS('getSilabos');
 
-        card.innerHTML = `
-            <div class="card subject-card h-100 ${isWeb ? 'web' : ''} shadow-sm border-0">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge bg-primary rounded-pill px-3">${silabo.asignatura.grado}</span>
-                        <span class="text-muted small">${silabo.parcial} Parcial</span>
-                    </div>
-                    <h5 class="card-title fw-bold text-dark">${silabo.asignatura.nombre_asignatura} - ${silabo.asignatura.seccion}</h5>
-                    <p class="card-text text-secondary mt-3">
-                        ${silabo.observaciones || 'Planificación curricular detallada para la asignatura.'}
-                    </p>
-                    <div class="mt-4 pt-3 border-top">
-                        <a href="Portafolio/Silabos/Silabo_Unified.html?id=${silabo.silabo_id}" class="btn btn-primary w-100 rounded-pill">
-                            <i class="bi bi-file-earmark-ruled me-2"></i>Ver Sílabo Completo
-                        </a>
+        if (silabos.error) {
+            container.innerHTML = `<div class="col-12 alert alert-danger">Error al cargar sílabos: ${silabos.error}</div>`;
+            return;
+        }
+
+        container.innerHTML = '';
+        silabos.forEach(silabo => {
+            const card = document.createElement('div');
+            card.className = 'col-md-6 mb-4';
+            const isWeb = silabo.asignatura.nombre_asignatura.toLowerCase().includes('web');
+
+            card.innerHTML = `
+                <div class="card subject-card h-100 ${isWeb ? 'web' : ''} shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill px-3">${silabo.asignatura.grado}</span>
+                            <span class="text-muted small">${silabo.parcial} Parcial</span>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">${silabo.asignatura.nombre_asignatura} - ${silabo.asignatura.seccion}</h5>
+                        <p class="card-text text-secondary mt-3">
+                            ${silabo.observaciones || 'Planificación curricular detallada para la asignatura.'}
+                        </p>
+                        <div class="mt-4 pt-3 border-top">
+                            <a href="Portafolio/Silabos/Silabo_Unified.html?id=${silabo.silabo_id}" class="btn btn-primary w-100 rounded-pill">
+                                <i class="bi bi-file-earmark-ruled me-2"></i>Ver Sílabo Completo
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        container.appendChild(card);
-    });
+            `;
+            container.appendChild(card);
+        });
+    } catch (e) {
+        console.error('Error in renderSilabos:', e);
+        container.innerHTML = `<div class="col-12 alert alert-danger">Error inesperado al cargar sílabos.</div>`;
+    } finally {
+        hideGlobalLoader();
+        isLoading = false;
+    }
 }
 
 // Función para renderizar la tabla de un sílabo específico
 async function renderSyllabusTable(silaboId) {
-    const data = await fetchFromGAS('getSyllabusContent', { silabo_id: silaboId });
-    if (data.error) {
-        const container = document.querySelector('.syllabus-container');
-        if (container) {
-            container.innerHTML = `<div class="alert alert-danger m-4">Error al obtener contenido: ${data.error}</div>`;
-        }
-        return;
-    }
+    if (isLoading) return;
+    isLoading = true;
+    showGlobalLoader();
 
-    const { silabo, unidades } = data;
+    try {
+        const data = await fetchFromGAS('getSyllabusContent', { silabo_id: silaboId });
 
-    const titleElement = document.getElementById('syllabus-title');
-    if (titleElement) titleElement.textContent = silabo.nombre_silabo.toUpperCase();
-
-    const courseInfo = document.getElementById('course-info-container');
-    if (courseInfo) {
-        courseInfo.innerHTML = `
-            <div class="course-info p-4 rounded-3 mb-4 shadow-sm border-0">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold">Asignatura</p>
-                        <p class="mb-0 fw-bold">${silabo.asignatura.nombre_asignatura}</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold">Grado y Sección</p>
-                        <p class="mb-0 fw-bold">${silabo.asignatura.grado} "${silabo.asignatura.seccion}"</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold">Docente</p>
-                        <p class="mb-0 fw-bold">${silabo.asignatura.docente}</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold">Fecha de Inicio</p>
-                        <p class="mb-0 fw-bold">${formatDate(silabo.fecha_inicio)}</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold">Fecha de Cierre</p>
-                        <p class="mb-0 fw-bold">${formatDate(silabo.fecha_cierre)}</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold">Parcial</p>
-                        <p class="mb-0 fw-bold">${silabo.parcial} Parcial</p>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    const tbody = document.getElementById('syllabus-body');
-    if (!tbody) return;
-
-    tbody.innerHTML = '';
-
-    if (unidades.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center p-5">No hay unidades registradas para este sílabo.</td></tr>';
-        return;
-    }
-
-    unidades.forEach(unidad => {
-        // Fila de Encabezado de Unidad
-        const trUnidad = document.createElement('tr');
-        trUnidad.className = 'table-light fw-bold';
-        trUnidad.innerHTML = `<td colspan="5" class="bg-light p-3"><i class="bi bi-bookmark-star-fill text-primary me-2"></i>Unidad: ${unidad.nombre_unidad}</td>`;
-        tbody.appendChild(trUnidad);
-
-        unidad.clases.forEach(clase => {
-            const tr = document.createElement('tr');
-
-            // Tema
-            const tdTema = document.createElement('td');
-            tdTema.innerHTML = `<a href="#" class="topic-link" onclick="loadClassPlan('${clase.clase_id}')">${clase.tema}</a>`;
-            tr.appendChild(tdTema);
-
-            // Asignacion
-            const tdAsig = document.createElement('td');
-            tdAsig.textContent = clase.asignacion ? clase.asignacion.titulo_asignacion : 'N/A';
-            tr.appendChild(tdAsig);
-
-            // Criterios
-            const tdCriterios = document.createElement('td');
-            if (clase.asignacion && clase.asignacion.criterios && clase.asignacion.criterios.length > 0) {
-                const ul = document.createElement('ul');
-                ul.className = 'list-unstyled mb-0 small';
-                clase.asignacion.criterios.forEach(cr => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<i class="bi bi-check2 text-success me-1"></i> ${cr.criterio}`;
-                    ul.appendChild(li);
-                });
-                tdCriterios.appendChild(ul);
-            } else {
-                tdCriterios.innerHTML = '<span class="text-muted italic small">Sin criterios definidos</span>';
+        if (data.error) {
+            const container = document.querySelector('.syllabus-container');
+            if (container) {
+                container.innerHTML = `<div class="alert alert-danger m-4">Error al obtener contenido: ${data.error}</div>`;
             }
-            tr.appendChild(tdCriterios);
+            return;
+        }
 
-            // Fecha
-            const tdFecha = document.createElement('td');
-            tdFecha.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center small">
-                    <div class="text-center flex-fill border-end pe-1" title="Fecha de Ejecución">${formatDate(clase.fecha_clase)}</div>
-                    <div class="text-center flex-fill ps-1" title="Fecha de Entrega">${clase.asignacion ? formatDate(clase.asignacion.fecha_entrega) : '-'}</div>
+        const { silabo, unidades } = data;
+
+        const titleElement = document.getElementById('syllabus-title');
+        if (titleElement) titleElement.textContent = silabo.nombre_silabo.toUpperCase();
+
+        const courseInfo = document.getElementById('course-info-container');
+        if (courseInfo) {
+            courseInfo.innerHTML = `
+                <div class="course-info p-4 rounded-3 mb-4 shadow-sm border-0">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <p class="mb-1 text-muted small text-uppercase fw-bold">Asignatura</p>
+                            <p class="mb-0 fw-bold">${silabo.asignatura.nombre_asignatura}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1 text-muted small text-uppercase fw-bold">Grado y Sección</p>
+                            <p class="mb-0 fw-bold">${silabo.asignatura.grado} "${silabo.asignatura.seccion}"</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1 text-muted small text-uppercase fw-bold">Docente</p>
+                            <p class="mb-0 fw-bold">${silabo.asignatura.docente}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1 text-muted small text-uppercase fw-bold">Fecha de Inicio</p>
+                            <p class="mb-0 fw-bold">${formatDate(silabo.fecha_inicio)}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1 text-muted small text-uppercase fw-bold">Fecha de Cierre</p>
+                            <p class="mb-0 fw-bold">${formatDate(silabo.fecha_cierre)}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1 text-muted small text-uppercase fw-bold">Parcial</p>
+                            <p class="mb-0 fw-bold">${silabo.parcial} Parcial</p>
+                        </div>
+                    </div>
                 </div>
             `;
-            tr.appendChild(tdFecha);
+        }
 
-            // Puntaje
-            const tdPuntaje = document.createElement('td');
-            tdPuntaje.className = 'text-center fw-bold';
-            tdPuntaje.textContent = clase.asignacion ? `${clase.asignacion.ponderacion}` : '-';
-            tr.appendChild(tdPuntaje);
+        const tbody = document.getElementById('syllabus-body');
+        if (!tbody) return;
 
-            tbody.appendChild(tr);
+        tbody.innerHTML = '';
+
+        if (unidades.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center p-5">No hay unidades registradas para este sílabo.</td></tr>';
+            return;
+        }
+
+        unidades.forEach(unidad => {
+            // Fila de Encabezado de Unidad
+            const trUnidad = document.createElement('tr');
+            trUnidad.className = 'table-light fw-bold';
+            trUnidad.innerHTML = `<td colspan="6" class="bg-light p-3"><i class="bi bi-bookmark-star-fill text-primary me-2"></i>Unidad: ${unidad.nombre_unidad}</td>`;
+            tbody.appendChild(trUnidad);
+
+            unidad.clases.forEach(clase => {
+                const tr = document.createElement('tr');
+
+            // Ayudante para obtener actividad guiada (manejar espacio extra en la clave del microservicio)
+            const guiada = clase.actividad_guiada || clase['actividad_guiada '] || '';
+
+                // Tema / Contenido
+                const tdTema = document.createElement('td');
+                tdTema.innerHTML = `
+                    <div class="fw-bold mb-1">
+                        <a href="#" class="topic-link" onclick="loadClassPlan('${clase.clase_id}')">${clase.tema}</a>
+                    </div>
+                    <div class="small text-muted" style="font-size: 0.85rem; line-height: 1.2;">
+                    ${guiada}
+                    </div>
+                `;
+                tr.appendChild(tdTema);
+
+                // Asignacion
+                const tdAsig = document.createElement('td');
+                tdAsig.textContent = clase.asignacion ? clase.asignacion.titulo_asignacion : 'N/A';
+                tr.appendChild(tdAsig);
+
+                // Criterios
+                const tdCriterios = document.createElement('td');
+                if (clase.asignacion && clase.asignacion.criterios && clase.asignacion.criterios.length > 0) {
+                    const ul = document.createElement('ul');
+                    ul.className = 'list-unstyled mb-0 small';
+                    clase.asignacion.criterios.forEach(cr => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<i class="bi bi-check2 text-success me-1"></i> ${cr.criterio}`;
+                        ul.appendChild(li);
+                    });
+                    tdCriterios.appendChild(ul);
+                } else {
+                    tdCriterios.innerHTML = '<span class="text-muted italic small">Sin criterios definidos</span>';
+                }
+                tr.appendChild(tdCriterios);
+
+                // Fecha Ejecución
+                const tdEjecucion = document.createElement('td');
+                tdEjecucion.className = 'text-center small';
+                tdEjecucion.textContent = formatDate(clase.fecha_clase);
+                tr.appendChild(tdEjecucion);
+
+                // Fecha Entrega
+                const tdEntrega = document.createElement('td');
+                tdEntrega.className = 'text-center small';
+                tdEntrega.textContent = (clase.asignacion && clase.asignacion.fecha_entrega) ? formatDate(clase.asignacion.fecha_entrega) : '-';
+                tr.appendChild(tdEntrega);
+
+                // Puntaje
+                const tdPuntaje = document.createElement('td');
+                tdPuntaje.className = 'text-center fw-bold small';
+                if (clase.asignacion) {
+                    const tipo = clase.asignacion.tipo || '';
+                    let ponderacion = clase.asignacion.ponderacion ? clase.asignacion.ponderacion.toString() : '';
+                    if (ponderacion && !ponderacion.includes('%')) {
+                        ponderacion += '%';
+                    }
+                    tdPuntaje.textContent = `${tipo} ${ponderacion}`.trim() || '-';
+                } else {
+                    tdPuntaje.textContent = '-';
+                }
+                tr.appendChild(tdPuntaje);
+
+                tbody.appendChild(tr);
+            });
         });
-    });
+    } catch (e) {
+        console.error('Error in renderSyllabusTable:', e);
+    } finally {
+        hideGlobalLoader();
+        isLoading = false;
+    }
 }
 
 // Función para cargar plan de clase desde el microservicio
 async function loadClassPlan(claseId) {
-    const data = await fetchFromGAS('getPlanDetails', { clase_id: claseId });
-    if (data.error) {
-        alert('Error al cargar el plan: ' + data.error);
-        return;
+    if (isLoading) return;
+
+    const modal = document.getElementById('planModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        if (modalTitle) modalTitle.textContent = 'Cargando Plan de Clase...';
+        if (modalBody) {
+            modalBody.innerHTML = `
+                <div class="text-center p-5">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Obteniendo detalles desde el servidor...</p>
+                </div>
+            `;
+        }
     }
 
-    displayPlanModal(data);
+    isLoading = true;
+    showGlobalLoader();
+
+    try {
+        const data = await fetchFromGAS('getPlanDetails', { clase_id: claseId });
+        if (data.error) {
+            if (modal) {
+                const modalBody = document.getElementById('modalBody');
+                if (modalBody) modalBody.innerHTML = `<div class="alert alert-danger m-4">Error: ${data.error}</div>`;
+            } else {
+                alert('Error al cargar el plan: ' + data.error);
+            }
+            return;
+        }
+        displayPlanModal(data);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        hideGlobalLoader();
+        isLoading = false;
+    }
 }
 
 // Función para mostrar el modal con el plan
@@ -258,9 +352,12 @@ function displayPlanModal(data) {
 
     modalTitle.textContent = `PLAN DE CLASE: ${clase.tema}`;
 
+    // Manejar espacio extra en la clave 'actividad_guiada' proveniente del microservicio
+    const guiada = clase.actividad_guiada || clase['actividad_guiada '] || '';
+
     const etapas = [
         { nombre: 'Pre-saberes', estrategia: clase.pre_saberes, ic: 'bi-lightbulb' },
-        { nombre: 'Actividad Guiada', estrategia: clase.actividad_guiada, ic: 'bi-person-video3' },
+        { nombre: 'Actividad Guiada', estrategia: guiada, ic: 'bi-person-video3' },
         { nombre: 'Actividad Independiente', estrategia: clase.actividad_independiente, ic: 'bi-pencil-fill' }
     ];
 
